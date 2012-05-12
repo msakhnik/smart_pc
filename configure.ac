@@ -20,7 +20,9 @@ if test "$ENABLE_UNITTEST" = "yes"; then
     [AC_MSG_ERROR([Missing gtest library, install the google unittest framework])])
 
     UNITTEST_LIBS="$(gtest-config --ldflags --libs)"
+    TEST_LIB="-lgtest_main -lgtest -pthread"
     AC_SUBST(UNITTEST_LIBS)
+    AC_SUBST(TEST_LIB)
 fi
 AM_CONDITIONAL(ENABLE_UNITTEST, test "$enable_unittests" = "yes")
 
@@ -40,4 +42,4 @@ PKG_CHECK_MODULES(OPENCV, [
   ])
 ])
 
-AC_OUTPUT([Makefile src/Makefile])
+AC_OUTPUT([Makefile src/Makefile test/Makefile])

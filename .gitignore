@@ -1,5 +1,7 @@
 nbproject/
 build/
+dist/
+.deps/
 *.gch
 .dep.inc
 /src/.deps/
