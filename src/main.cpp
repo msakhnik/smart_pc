@@ -1,22 +1,67 @@
-/* 
- * File:   main.cpp
- * Author: morwin
- *
- * Created on 12 травня 2012, 10:46
- */
-
-#include <cstdlib>
 #include <iostream>
+#include <getopt.h>
+#include <cstring>
+
+#include "HandDetector.h"
 
 using namespace std;
 
-/*
- * 
- */
-int main(int argc, char** argv) {
-    
-    cout << "Hello" << endl;
-    
-    return 0;
+static char const* _Basename(char const* fname) {
+    char const* res = strrchr(fname, '/');
+    return res ? res + 1 : fname;
 }
 
+static void _ReadHelp(const char *progname) {
+    cout << "Smart_pc\n\n"
+            "Synopsis:\n"
+            "  " << progname << " [options] file\n\n"
+            "Options:\n"
+            "  -s,--some\t\tSet scale\n"
+            "  -h,--help\t\tThis help message\n\n"
+            "Example:\n"
+            "  " << progname << " example/example1.asf\n"
+            "  " << progname << " -f example/example2.asf\n"
+            "  " << progname << " -s2 example/example3.asf\n"
+            "  this creates a file test.asf in the directory 'example'"
+            << endl;
+}
+
+int main(int argc, char** argv) {
+    char const* progname = _Basename(argv[0]);
+    while (true) {
+        static struct option long_options[] = {
+            { "some option", required_argument, 0, 's'},
+            { "help", no_argument, 0, 'h'},
+            { 0, 0, 0, 0}
+        };
+
+        int option_index = 0;
+
+        int c = getopt_long(argc, argv, "fr:s:h",
+                long_options, &option_index);
+
+        if (c == -1)
+            break;
+
+        switch (c) {
+            case 'h':
+                _ReadHelp(progname);
+                return 0;
+
+            case 's':
+                cerr << "Some option" << endl;
+                break;
+
+            default:
+                cerr << "Unknown option '" << c << "'" << endl;
+                return 1;
+        }
+    }
+
+    HandDetector detector;
+    if (detector.Start())
+    {
+        cerr << "good" << endl;
+    }
+    return 0;
+}

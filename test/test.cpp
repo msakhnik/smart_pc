@@ -1,16 +1,12 @@
 #include <iostream>
-
+#include "../src/HandDetector.h"
 #include <gtest/gtest.h>
 
-int sampleTest(int a)
-{
-    return a*a;
-}
+HandDetector detector;
 
-TEST(sample_test_case, sample_test)
+TEST(AsfFileTest, ReadFrame)
 {
-    EXPECT_EQ(4, sampleTest(2));
-    
+    ASSERT_TRUE(detector.Start());
 }
 
 using namespace std;
