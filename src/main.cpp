@@ -61,7 +61,8 @@ int main(int argc, char** argv) {
     HandDetector detector;
     if (detector.Start())
     {
-        cerr << "good" << endl;
+        detector.GetImageArray();
     }
+
     return 0;
 }

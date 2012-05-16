@@ -18,6 +18,7 @@ public:
     virtual ~HandDetector();
 
     bool Start();
+    void GetImageArray();
 private:
     //Turn on and check camera
     bool _TurnOnCamera();
@@ -33,6 +34,9 @@ private:
     void _DrawCircle();
     //Destruct all images
     void _ReleaseImage();
+    //
+    void _CropImage();
+
     CvCapture* _capture;
     IplImage* _img;
     IplImage* _gsImage;
