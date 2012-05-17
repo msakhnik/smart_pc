@@ -11,12 +11,12 @@
 using namespace std;
 
 HandDetector::HandDetector() :
-    _storage(cvCreateMemStorage(0)),
-    _contours(0),
-    _radius(0.0),
-    _show_window(true),
-    _frame_delay(5),
-    _count_frame(0)
+            _storage(cvCreateMemStorage(0)),
+            _contours(0),
+            _radius(0.0),
+            _show_window(true),
+            _frame_delay(5),
+            _count_frame(0)
 {
 }
 
@@ -25,7 +25,8 @@ HandDetector::~HandDetector() {
     cvReleaseImage(&_img);
     cvReleaseImage(&_gsImage);
     cvReleaseImage(&_img_gray);
-    cvDestroyWindow( "MainCamera" );
+    cvReleaseImage(&_tmpImage);
+    cvDestroyWindow("MainCamera");
 }
 
 bool HandDetector::Start() {
@@ -65,14 +66,11 @@ bool HandDetector::_ShowImage() {
             return false;
         }
         _TransformColor();
-        if (_FindContours())
-        {
+        if (_FindContours()) {
             _count_frame++;
             _DrawCircle();
             cvShowImage("MainCamera", _img);
-        }
-        else
-        {
+        } else {
             cvShowImage("MainCamera", _img);
             _count_frame = 0;
             cv::destroyWindow("MainCamera");
@@ -81,9 +79,9 @@ bool HandDetector::_ShowImage() {
         c = cvWaitKey(10);
         if (c == 27 || c == 'q' || c == 'Q')
             break;
-        if (_count_frame == 30)
-        {
+        if (_count_frame == 30) {
             _CropImage();
+            _ConvertArray();
             return true;
         }
     }
@@ -122,7 +120,7 @@ bool HandDetector::_FindContours() {
     cvCvtColor(_gsImage, _img_gray, CV_BGR2GRAY);
     // REMEMBER: add cvPoint(0, 0) in end if need
     cvFindContours(_img_gray, _storage, &_contours, sizeof (CvContour),
-                   CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
+            CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE);
     CvSeq* h_next = 0;
     CvSeq* contur = _contours;
     if (contur == 0)
@@ -155,25 +153,33 @@ void HandDetector::_DrawCircle() {
     }
 }
 
-void HandDetector::_CropImage()
-{
+void HandDetector::_CropImage() {
     CvRect rect;
     rect.x = _center.x - _radius;
     rect.y = _center.y - _radius;
     rect.width = _radius * 2;
     rect.height = _radius * 2;
     cvSetImageROI(_gsImage, rect);
-    _img = cvCreateImage(cvGetSize(_gsImage),
-                                _gsImage->depth,
-                                _gsImage->nChannels);
-    cvCopy(_gsImage, _img, NULL);
-    cvShowImage("ROI", _img);
-    cvResetImageROI(_gsImage);
-    cvWaitKey(0);
+    _img->width = 100;
+    _img->height = 100;
+    _tmpImage = cvCreateImage(cvGetSize(_gsImage),
+            _gsImage->depth,
+            _gsImage->nChannels);
+    cvCopy(_gsImage, _tmpImage, NULL);
+    cvResize(_tmpImage, _img);
 }
 
-void HandDetector::GetImageArray()
-{
-    cout << "Into GetImageArray " << endl;
+void HandDetector::_ConvertArray() {
+    _data.empty();
+    _tmpImage = cvCreateImage(cvSize(_img->height, _img->width), IPL_DEPTH_8U, 1);
+    cvCvtColor(_img, _tmpImage, CV_RGB2GRAY);
 
+    for (int i = 0; i < _img->height; ++i)
+        for (int j = 0; j < _img->width; ++j)
+            _data.push_back(cvGetReal2D(_tmpImage, i, j)?1:0);
+}
+
+vector<int> & HandDetector::GetImageArray()
+{
+    return _data;
 }

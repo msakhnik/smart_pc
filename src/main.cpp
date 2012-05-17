@@ -1,6 +1,9 @@
 #include <iostream>
 #include <getopt.h>
 #include <cstring>
+#include <vector>
+#include<iterator>
+#include<numeric>
 
 #include "HandDetector.h"
 
@@ -61,7 +64,23 @@ int main(int argc, char** argv) {
     HandDetector detector;
     if (detector.Start())
     {
-        detector.GetImageArray();
+        vector<int>  myvect;
+        myvect = detector.GetImageArray();
+
+/*        int i = 0;
+        for(std::vector<int>::iterator j=myvect.begin(); j!=myvect.end(); ++j)
+        {
+            cout << (*j );
+            if (i == 99)
+            {
+                cout << endl;
+                i = 0;
+                continue;
+            }
+            i++;
+        }
+ */
+
     }
 
     return 0;

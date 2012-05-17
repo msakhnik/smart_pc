@@ -11,14 +11,16 @@
 #include <highgui.h>
 #include <cxcore.h>
 #include "opencv2/highgui/highgui.hpp"
+#include <vector>
 
 class HandDetector {
 public:
     HandDetector();
     virtual ~HandDetector();
 
+    typedef std::vector <int> ImageData;
     bool Start();
-    void GetImageArray();
+    std::vector<int> & GetImageArray();
 private:
     //Turn on and check camera
     bool _TurnOnCamera();
@@ -36,11 +38,13 @@ private:
     void _ReleaseImage();
     //
     void _CropImage();
+    //
+    void _ConvertArray();
 
     CvCapture* _capture;
     IplImage* _img;
     IplImage* _gsImage;
-    IplImage* _binImage;
+    IplImage* _tmpImage;
     IplImage* _img_gray;
 
     CvMemStorage* _storage;
@@ -52,4 +56,6 @@ private:
     int _frame_delay;
     
     unsigned int _count_frame;
+
+    ImageData _data;
 };
