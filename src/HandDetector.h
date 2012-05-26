@@ -1,5 +1,5 @@
 /* 
- * File:   HandDetector.h
+ * File:   cHandDetector.h
  * Author: morwin
  *
  * Created on 12 травня 2012, 11:00
@@ -13,12 +13,11 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <vector>
 
-class HandDetector {
+class cHandDetector {
 public:
-    HandDetector();
-    virtual ~HandDetector();
+    cHandDetector();
+    virtual ~cHandDetector();
 
-    typedef std::vector <int> ImageData;
     bool Start();
     std::vector<int> & GetImageArray();
 private:
@@ -56,6 +55,5 @@ private:
     int _frame_delay;
     
     unsigned int _count_frame;
-
-    ImageData _data;
+    std::vector<int> _data;
 };

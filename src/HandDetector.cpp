@@ -1,5 +1,5 @@
 /* 
- * File:   HandDetector.cpp
+ * File:   cHandDetector.cpp
  * Author: morwin
  * 
  * Created on 12 травня 2012, 11:00
@@ -10,7 +10,7 @@
 
 using namespace std;
 
-HandDetector::HandDetector() :
+cHandDetector::cHandDetector() :
             _storage(cvCreateMemStorage(0)),
             _contours(0),
             _radius(0.0),
@@ -20,7 +20,7 @@ HandDetector::HandDetector() :
 {
 }
 
-HandDetector::~HandDetector() {
+cHandDetector::~cHandDetector() {
     cvReleaseCapture(&_capture);
     cvReleaseImage(&_img);
     cvReleaseImage(&_gsImage);
@@ -29,7 +29,7 @@ HandDetector::~HandDetector() {
     cvDestroyWindow("MainCamera");
 }
 
-bool HandDetector::Start() {
+bool cHandDetector::Start() {
     if (!_TurnOnCamera())
         return false;
 
@@ -42,7 +42,7 @@ bool HandDetector::Start() {
     return true;
 }
 
-bool HandDetector::_TurnOnCamera() {
+bool cHandDetector::_TurnOnCamera() {
     _capture = cvCreateCameraCapture(-1);
     assert(_capture);
     if (!_capture) {
@@ -53,11 +53,11 @@ bool HandDetector::_TurnOnCamera() {
     return true;
 }
 
-void HandDetector::_CreateWindow() {
+void cHandDetector::_CreateWindow() {
     cvNamedWindow("MainCamera", 1);
 }
 
-bool HandDetector::_ShowImage() {
+bool cHandDetector::_ShowImage() {
     int c = 0;
     for (;;) {
         _img = cvQueryFrame(_capture);
@@ -89,7 +89,7 @@ bool HandDetector::_ShowImage() {
     return false;
 }
 
-void HandDetector::_TransformColor() {
+void cHandDetector::_TransformColor() {
     _gsImage = cvCreateImage(cvGetSize(_img), 8, 3);
     cvCopy(_img, _gsImage);
 
@@ -113,7 +113,7 @@ void HandDetector::_TransformColor() {
         }
 }
 
-bool HandDetector::_FindContours() {
+bool cHandDetector::_FindContours() {
     _img_gray = cvCreateImage(cvSize(_gsImage->width, _gsImage->height), 8, 1);
     _contours = 0;
     _storage = cvCreateMemStorage(0);
@@ -144,7 +144,7 @@ bool HandDetector::_FindContours() {
 }
 // we draw red circle
 
-void HandDetector::_DrawCircle() {
+void cHandDetector::_DrawCircle() {
     if (_center.x>-1) {
         CvPoint p;
         p.x = _center.x;
@@ -153,7 +153,7 @@ void HandDetector::_DrawCircle() {
     }
 }
 
-void HandDetector::_CropImage() {
+void cHandDetector::_CropImage() {
     CvRect rect;
     rect.x = _center.x - _radius;
     rect.y = _center.y - _radius;
@@ -169,7 +169,7 @@ void HandDetector::_CropImage() {
     cvResize(_tmpImage, _img);
 }
 
-void HandDetector::_ConvertArray() {
+void cHandDetector::_ConvertArray() {
     _data.empty();
     _tmpImage = cvCreateImage(cvSize(_img->height, _img->width), IPL_DEPTH_8U, 1);
     cvCvtColor(_img, _tmpImage, CV_RGB2GRAY);
@@ -179,7 +179,7 @@ void HandDetector::_ConvertArray() {
             _data.push_back(cvGetReal2D(_tmpImage, i, j)?1:0);
 }
 
-vector<int> & HandDetector::GetImageArray()
+vector<int> & cHandDetector::GetImageArray()
 {
     return _data;
 }

@@ -1,6 +1,6 @@
 AC_PREREQ(2.59)
 
-AC_INIT([ball-detector],[1.0],[kskster@gmail.com])
+AC_INIT([smart_pc],[1.0],[kskster@gmail.com])
 
 AM_INIT_AUTOMAKE([1.9])
 

@@ -2,7 +2,7 @@
 #include "../src/HandDetector.h"
 #include <gtest/gtest.h>
 
-HandDetector detector;
+cHandDetector detector;
 
 TEST(AsfFileTest, ReadFrame)
 {

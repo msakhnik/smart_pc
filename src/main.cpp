@@ -2,10 +2,9 @@
 #include <getopt.h>
 #include <cstring>
 #include <vector>
-#include<iterator>
-#include<numeric>
 
-#include "HandDetector.h"
+//#include "HandDetector.h"
+#include "AnnTrain.h"
 
 using namespace std;
 
@@ -61,13 +60,13 @@ int main(int argc, char** argv) {
         }
     }
 
-    HandDetector detector;
-    if (detector.Start())
+    //cHandDetector detector;
+    /*if (detector.Start())
     {
         vector<int>  myvect;
         myvect = detector.GetImageArray();
 
-/*        int i = 0;
+        int i = 0;
         for(std::vector<int>::iterator j=myvect.begin(); j!=myvect.end(); ++j)
         {
             cout << (*j );
@@ -78,9 +77,22 @@ int main(int argc, char** argv) {
                 continue;
             }
             i++;
-        }
- */
+        }l
+     * 
+     * 
+     * 
+     * 
+     * 
+ 
 
+    }
+     * */
+    cAnnTrain train;
+    vector<int> array(10, 0);
+    array.push_back(1);
+    if (train.TrainNeiro(array))
+    {
+        cerr << "Good train!!!" << endl;
     }
 
     return 0;
