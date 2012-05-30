@@ -95,5 +95,7 @@ int main(int argc, char** argv) {
         cerr << "Good train!!!" << endl;
     }
 
+//    train.ClearTrainFiles();
+
     return 0;
 }

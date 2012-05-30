@@ -18,6 +18,7 @@ public:
     cAnnTrain(const std::vector<int> &);
     ~cAnnTrain();
     bool TrainNeiro();
+    bool ClearTrainFiles();
 private:
     unsigned int _num_input ;
     unsigned int _num_output;
@@ -32,14 +33,12 @@ private:
     std::string _train_file;
     std::string _save_file;
 
-    std::ofstream _fileRecord;
     std::vector<int> _data;
 
     void _DoReadlink();
     bool _SaveData();
     bool _RecordData();
-    bool _InitFile();
-    bool _InitFile(std::ifstream);
+    template<class T> bool _InitFile(T&, bool);
     
     bool _RecordHead();
     bool _GetHeaderData();
