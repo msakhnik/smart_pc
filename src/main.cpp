@@ -87,10 +87,10 @@ int main(int argc, char** argv) {
 
     }
      * */
-    cAnnTrain train;
     vector<int> array(10, 0);
     array.push_back(1);
-    if (train.TrainNeiro(array))
+    cAnnTrain train(array);
+    if (train.TrainNeiro())
     {
         cerr << "Good train!!!" << endl;
     }

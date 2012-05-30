@@ -11,14 +11,13 @@
 #include <vector>
 #include<cstring>
 #include<string>
+#include <fstream>
 
 class cAnnTrain {
 public:
-    cAnnTrain();
+    cAnnTrain(const std::vector<int> &);
     ~cAnnTrain();
-    
-    
-    bool TrainNeiro(const std::vector<int> &);
+    bool TrainNeiro();
 private:
     unsigned int _num_input ;
     unsigned int _num_output;
@@ -27,10 +26,21 @@ private:
     float _desired_error;
     unsigned int _max_epochs;
     unsigned int _epochs_between_reports;
+    unsigned int _count;
 
     struct fann *sAnn;
     std::string _train_file;
     std::string _save_file;
 
+    std::ofstream _fileRecord;
+    std::vector<int> _data;
+
     void _DoReadlink();
+    bool _SaveData();
+    bool _RecordData();
+    bool _InitFile();
+    bool _InitFile(std::ifstream);
+    
+    bool _RecordHead();
+    bool _GetHeaderData();
 };
