@@ -1,3 +1,8 @@
-This is a program for detection pin-pong ball in space.
+This program allows the computer to teach the commands which are given by hand gestures
+
+First, you need the orange gloves.
+Then install LIBFANN library(http://leenissen.dk/fann/wp/) and OPENCV (http://sourceforge.net/projects/opencvlibrary/)
+
+compile and enjoy
 
 Misha Sakhnik, 2012
