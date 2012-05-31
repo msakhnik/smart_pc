@@ -101,6 +101,17 @@ int main(int argc, char** argv) {
 //    train.ClearTrainFiles();
 
     cCommandProcess command;
-
+    if (!command.Init())
+        return false;
+    else
+    {
+        /*
+        t = 1
+        command.ValidateInputData(t);
+        command.GetCommand(t);
+         */
+        command.AddCommand("geany");
+        command.ShowCommands();
+    }
     return 0;
 }

@@ -9,11 +9,21 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
 class cCommandProcess {
 public:
     cCommandProcess();
     ~cCommandProcess();
+    bool Init();
+    void ShowCommands();
+    std::string GetCommand(int);
+    bool ValidateInputData(unsigned int);
+    bool AddCommand(std::string);
 private:
+    bool _InitFile();
+    std::string _DoReadlink();
     std::vector<std::string>_commands;
+
+    std::string _file_name;
 };
