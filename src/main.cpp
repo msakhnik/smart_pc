@@ -5,6 +5,7 @@
 
 //#include "HandDetector.h"
 #include "AnnTrain.h"
+#include "CommandProcess.h"
 
 using namespace std;
 
@@ -87,6 +88,7 @@ int main(int argc, char** argv) {
 
     }
      * */
+    /*
     vector<int> array(10, 0);
     array.push_back(1);
     cAnnTrain train(array);
@@ -94,8 +96,11 @@ int main(int argc, char** argv) {
     {
         cerr << "Good train!!!" << endl;
     }
+     */
 
 //    train.ClearTrainFiles();
+
+    cCommandProcess command;
 
     return 0;
 }
