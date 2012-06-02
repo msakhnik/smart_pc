@@ -11,7 +11,8 @@
 #include <string>
 #include <fstream>
 
-class cCommandProcess {
+class cCommandProcess
+{
 public:
     cCommandProcess();
     ~cCommandProcess();
@@ -20,7 +21,11 @@ public:
     std::string GetCommand(int);
     bool ValidateInputData(unsigned int);
     bool AddCommand(std::string);
-    unsigned int GetArraySize() {return _commands.size(); }
+
+    unsigned int GetArraySize()
+    {
+        return _commands.size();
+    }
 private:
     bool _InitFile();
     std::string _DoReadlink();

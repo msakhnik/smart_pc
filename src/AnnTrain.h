@@ -13,20 +13,17 @@
 #include<string>
 #include <fstream>
 
-class cAnnTrain {
+class cAnnTrain
+{
 public:
-    cAnnTrain(const std::vector<int> &);
+    cAnnTrain(const std::vector<int> &, unsigned int);
+    cAnnTrain();
     ~cAnnTrain();
-    bool TrainNeiro(unsigned int, unsigned int);
+    bool TrainNeiro(unsigned int);
     bool ClearTrainFiles();
 private:
-    unsigned int _num_input ;
+    unsigned int _num_input;
     unsigned int _num_output;
-    unsigned int _num_layers;
-    unsigned int _num_neurons_hidden;
-    float _desired_error;
-    unsigned int _max_epochs;
-    unsigned int _epochs_between_reports;
     unsigned int _count;
 
     struct fann *sAnn;
@@ -40,7 +37,7 @@ private:
     bool _SaveData();
     bool _RecordData();
     template<class T> bool _InitFile(T&, bool);
-    
+
     bool _RecordHead();
     bool _GetHeaderData();
     bool _InitPerceptron();

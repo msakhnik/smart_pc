@@ -19,51 +19,53 @@
 
 using namespace std;
 
-cAnnTrain::cAnnTrain(const vector<int> & data) :
+cAnnTrain::cAnnTrain(const vector<int> & data, unsigned int output) :
 _num_input(10000),
-_num_output(1),
-_num_layers(3),
-_num_neurons_hidden(3),
-_desired_error(0.001),
-_max_epochs(500000),
-_epochs_between_reports(1000),
+_num_output(output),
 _count(0),
 _data(data)
 {
-//    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
+    //    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
     _DoReadlink();
 
 }
 
-cAnnTrain::~cAnnTrain() {
+cAnnTrain::cAnnTrain() :
+_num_input(10000)
+{
+    _DoReadlink();
+}
+
+cAnnTrain::~cAnnTrain()
+{
     cerr << "Destructor" << endl;
     fann_destroy(sAnn);
 }
 
-bool cAnnTrain::TrainNeiro(unsigned int output, unsigned int answer)
+bool cAnnTrain::TrainNeiro(unsigned int answer)
 {
-//    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
+    //    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
+    float desired_error = 0.001;
+    unsigned int max_epochs = 500000;
+    unsigned int epochs_between_reports = 1000;
     if (!_GetHeaderData())
         return false;
-    if (output != _num_output)
-    {
-        ClearTrainFiles();
-        _num_output = output;
-    }
     _answer.resize(_num_output, 0);
     _answer[answer - 1] = 1;
     _InitPerceptron();
     if (!_SaveData())
         return false;
     //    copy(data.begin(), data.end(), ostream_iterator<int>(cout, " "));
-    fann_train_on_file(sAnn, _train_file.c_str(), _max_epochs, _epochs_between_reports, _desired_error);
+    fann_train_on_file(sAnn, _train_file.c_str(), max_epochs, epochs_between_reports, desired_error);
     fann_save(sAnn, _save_file.c_str());
     return true;
 }
 
-void cAnnTrain::_DoReadlink() {
+void cAnnTrain::_DoReadlink()
+{
     char buf[256];
-    ssize_t len = readlink("/proc/self/exe", buf, sizeof (buf));
+    if (!readlink("/proc/self/exe", buf, sizeof (buf)))
+        cerr << "Cannot to read path to file" << endl;
     vector<string> temp;
     string line(buf);
     istringstream is(line);
@@ -79,7 +81,8 @@ void cAnnTrain::_DoReadlink() {
     _save_file = line + s;
 }
 
-bool cAnnTrain::_SaveData() {
+bool cAnnTrain::_SaveData()
+{
     if (!_RecordHead())
         return false;
     if (!_RecordData())
@@ -88,7 +91,8 @@ bool cAnnTrain::_SaveData() {
     return true;
 }
 
-bool cAnnTrain::_RecordData() {
+bool cAnnTrain::_RecordData()
+{
     ofstream fileRecord;
     if (!_InitFile(fileRecord, true))
         return false;
@@ -103,7 +107,8 @@ bool cAnnTrain::_RecordData() {
     return true;
 }
 
-bool cAnnTrain::_RecordHead() {
+bool cAnnTrain::_RecordHead()
+{
     fstream ss;
     if (!_InitFile(ss, false))
         return false;
@@ -120,7 +125,8 @@ bool cAnnTrain::_RecordHead() {
 }
 //TODO: Create template for checking file
 
-bool cAnnTrain::_GetHeaderData() {
+bool cAnnTrain::_GetHeaderData()
+{
     ifstream final_file;
     if (!_InitFile(final_file, false))
         return false;
@@ -134,17 +140,24 @@ bool cAnnTrain::_GetHeaderData() {
     pch = strtok(NULL, " ");
     _num_input = atoi(pch);
     pch = strtok(NULL, " ");
-    _num_output = atoi(pch);
+    unsigned int output = atoi(pch);
+    if (output != _num_output)
+    {
+        ClearTrainFiles();
+        _num_output = output;
+    }
     pch = strtok(NULL, " ");
     if (pch == NULL)
         return true;
-    else {
+    else
+    {
         cerr << "Train file is failed" << endl;
         return false;
     }
 }
 
-bool cAnnTrain::ClearTrainFiles() {
+bool cAnnTrain::ClearTrainFiles()
+{
     ofstream fileRecord;
     if (!_InitFile(fileRecord, false))
         return false;
@@ -156,12 +169,14 @@ bool cAnnTrain::ClearTrainFiles() {
     return true;
 }
 
-template<class T> bool cAnnTrain::_InitFile(T & file, bool add) {
+template<class T> bool cAnnTrain::_InitFile(T & file, bool add)
+{
     if (add)
         file.open(_train_file.c_str(), ios::app);
     else
         file.open(_train_file.c_str());
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         cerr << "Cannot create or open file" << endl;
         return false;
     }
@@ -170,7 +185,9 @@ template<class T> bool cAnnTrain::_InitFile(T & file, bool add) {
 
 bool cAnnTrain::_InitPerceptron()
 {
-    sAnn = fann_create_standard(_num_layers, _num_input, _num_neurons_hidden, _num_output);
+    unsigned int num_layers = 3;
+    unsigned int num_neurons_hidden = 3;
+    sAnn = fann_create_standard(num_layers, _num_input, num_neurons_hidden, _num_output);
 
     fann_set_activation_function_hidden(sAnn, FANN_SIGMOID_SYMMETRIC);
     fann_set_activation_function_output(sAnn, FANN_SIGMOID_SYMMETRIC);

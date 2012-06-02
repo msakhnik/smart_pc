@@ -13,7 +13,8 @@
 #include "opencv2/highgui/highgui.hpp"
 #include <vector>
 
-class cHandDetector {
+class cHandDetector
+{
 public:
     cHandDetector();
     virtual ~cHandDetector();
@@ -50,10 +51,10 @@ private:
     CvSeq* _contours;
     CvPoint2D32f _center;
     float _radius;
-    
+
     bool _show_window;
     int _frame_delay;
-    
+
     unsigned int _count_frame;
     std::vector<int> _data;
 };
