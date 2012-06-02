@@ -17,7 +17,7 @@ class cAnnTrain {
 public:
     cAnnTrain(const std::vector<int> &);
     ~cAnnTrain();
-    bool TrainNeiro();
+    bool TrainNeiro(unsigned int, unsigned int);
     bool ClearTrainFiles();
 private:
     unsigned int _num_input ;
@@ -34,6 +34,7 @@ private:
     std::string _save_file;
 
     std::vector<int> _data;
+    std::vector<int> _answer;
 
     void _DoReadlink();
     bool _SaveData();
@@ -42,4 +43,5 @@ private:
     
     bool _RecordHead();
     bool _GetHeaderData();
+    bool _InitPerceptron();
 };

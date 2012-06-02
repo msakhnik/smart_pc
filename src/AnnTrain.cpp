@@ -20,7 +20,7 @@
 using namespace std;
 
 cAnnTrain::cAnnTrain(const vector<int> & data) :
-_num_input(11),
+_num_input(10000),
 _num_output(1),
 _num_layers(3),
 _num_neurons_hidden(3),
@@ -28,13 +28,11 @@ _desired_error(0.001),
 _max_epochs(500000),
 _epochs_between_reports(1000),
 _count(0),
-_data(data) {
+_data(data)
+{
+//    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
     _DoReadlink();
 
-    sAnn = fann_create_standard(_num_layers, _num_input, _num_neurons_hidden, _num_output);
-
-    fann_set_activation_function_hidden(sAnn, FANN_SIGMOID_SYMMETRIC);
-    fann_set_activation_function_output(sAnn, FANN_SIGMOID_SYMMETRIC);
 }
 
 cAnnTrain::~cAnnTrain() {
@@ -42,8 +40,19 @@ cAnnTrain::~cAnnTrain() {
     fann_destroy(sAnn);
 }
 
-bool cAnnTrain::TrainNeiro() {
-    cerr << "train" << endl;
+bool cAnnTrain::TrainNeiro(unsigned int output, unsigned int answer)
+{
+//    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
+    if (!_GetHeaderData())
+        return false;
+    if (output != _num_output)
+    {
+        ClearTrainFiles();
+        _num_output = output;
+    }
+    _answer.resize(_num_output, 0);
+    _answer[answer - 1] = 1;
+    _InitPerceptron();
     if (!_SaveData())
         return false;
     //    copy(data.begin(), data.end(), ostream_iterator<int>(cout, " "));
@@ -71,8 +80,6 @@ void cAnnTrain::_DoReadlink() {
 }
 
 bool cAnnTrain::_SaveData() {
-    if (!_GetHeaderData())
-        return false;
     if (!_RecordHead())
         return false;
     if (!_RecordData())
@@ -87,7 +94,10 @@ bool cAnnTrain::_RecordData() {
         return false;
     for (unsigned int i = 0; i < _data.size(); ++i)
         fileRecord << _data[i] << " ";
-    fileRecord << "\n1\n";
+    fileRecord << "\n";
+    for (unsigned int i = 0; i < _answer.size(); ++i)
+        fileRecord << _answer[i] << " ";
+    fileRecord << "\n";
 
     fileRecord.close();
     return true;
@@ -155,5 +165,15 @@ template<class T> bool cAnnTrain::_InitFile(T & file, bool add) {
         cerr << "Cannot create or open file" << endl;
         return false;
     }
+    return true;
+}
+
+bool cAnnTrain::_InitPerceptron()
+{
+    sAnn = fann_create_standard(_num_layers, _num_input, _num_neurons_hidden, _num_output);
+
+    fann_set_activation_function_hidden(sAnn, FANN_SIGMOID_SYMMETRIC);
+    fann_set_activation_function_output(sAnn, FANN_SIGMOID_SYMMETRIC);
+
     return true;
 }

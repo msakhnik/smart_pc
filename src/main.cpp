@@ -3,7 +3,7 @@
 #include <cstring>
 #include <vector>
 
-//#include "HandDetector.h"
+#include "HandDetector.h"
 #include "AnnTrain.h"
 #include "CommandProcess.h"
 
@@ -19,28 +19,51 @@ static void _ReadHelp(const char *progname) {
             "Synopsis:\n"
             "  " << progname << " [options] file\n\n"
             "Options:\n"
-            "  -s,--some\t\tSet scale\n"
-            "  -h,--help\t\tThis help message\n\n"
+            "  -t,--train\t\tTrain you perceptron\n"
+            "  -h,--help\t\tThis is help message\n\n"
             "Example:\n"
-            "  " << progname << " example/example1.asf\n"
-            "  " << progname << " -f example/example2.asf\n"
-            "  " << progname << " -s2 example/example3.asf\n"
-            "  this creates a file test.asf in the directory 'example'"
             << endl;
+}
+
+void _TrainAnn()
+{
+    cHandDetector detector;
+    if (detector.Start())
+    {
+        vector<int>  myvect;
+        myvect = detector.GetImageArray();
+        cerr << "\n\nYou hand was detected\n\n" << endl;
+        cCommandProcess command;
+        command.Init();
+        command.ShowCommands();
+        while (true)
+        {
+            cerr  << "Please enter the number of command in range [1 .. "
+                    << command.GetArraySize() << "]" << endl;
+            int input;
+            cin >> input;
+            if(command.ValidateInputData(input))
+            {
+                cAnnTrain train(myvect);
+                train.TrainNeiro(command.GetArraySize(), input);
+                break;
+            }
+        }
+    }
 }
 
 int main(int argc, char** argv) {
     char const* progname = _Basename(argv[0]);
     while (true) {
         static struct option long_options[] = {
-            { "some option", required_argument, 0, 's'},
+            { "train", no_argument, 0, 't'},
             { "help", no_argument, 0, 'h'},
             { 0, 0, 0, 0}
         };
 
         int option_index = 0;
 
-        int c = getopt_long(argc, argv, "fr:s:h",
+        int c = getopt_long(argc, argv, "th",
                 long_options, &option_index);
 
         if (c == -1)
@@ -51,8 +74,8 @@ int main(int argc, char** argv) {
                 _ReadHelp(progname);
                 return 0;
 
-            case 's':
-                cerr << "Some option" << endl;
+            case 't':
+                _TrainAnn();
                 break;
 
             default:
@@ -98,20 +121,20 @@ int main(int argc, char** argv) {
     }
      */
 
-//    train.ClearTrainFiles();
+    //    train.ClearTrainFiles();
 
-    cCommandProcess command;
+    /*cCommandProcess command;
     if (!command.Init())
         return false;
-    else
-    {
+    else {
         /*
         t = 1
         command.ValidateInputData(t);
         command.GetCommand(t);
-         */
+         
         command.AddCommand("geany");
         command.ShowCommands();
     }
+*/
     return 0;
 }
