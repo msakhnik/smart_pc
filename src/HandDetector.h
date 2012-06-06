@@ -21,6 +21,7 @@ public:
 
     bool Start();
     std::vector<int> & GetImageArray();
+    void ReleaseImages();
 private:
     //Turn on and check camera
     bool _TurnOnCamera();

@@ -19,11 +19,10 @@
 
 using namespace std;
 
-cAnnTrain::cAnnTrain(const vector<int> & data, unsigned int output) :
+cAnnTrain::cAnnTrain(unsigned int output) :
 _num_input(10000),
 _num_output(output),
-_count(0),
-_data(data)
+_count(0)
 {
     //    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
     _DoReadlink();
@@ -48,7 +47,7 @@ cAnnTrain::~cAnnTrain()
     fann_destroy(sAnn);
 }
 
-bool cAnnTrain::TrainNeiro(unsigned int answer)
+bool cAnnTrain::TrainNeiro()
 {
     //    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
     float desired_error = 0.001;
@@ -56,11 +55,9 @@ bool cAnnTrain::TrainNeiro(unsigned int answer)
     unsigned int epochs_between_reports = 1000;
     if (!_GetHeaderData())
         return false;
-    _answer.resize(_num_output, 0);
-    _answer[answer - 1] = 1;
     _InitPerceptron();
-    if (!_SaveData())
-        return false;
+//    if (!_SaveData())
+//        return false;
     //    copy(data.begin(), data.end(), ostream_iterator<int>(cout, " "));
     fann_train_on_file(sAnn, _train_file.c_str(), max_epochs, epochs_between_reports, desired_error);
     fann_save(sAnn, _save_file.c_str());
@@ -87,13 +84,20 @@ void cAnnTrain::_DoReadlink()
     _save_file = line + s;
 }
 
-bool cAnnTrain::_SaveData()
+bool cAnnTrain::SaveData(const vector<int> & data, unsigned int answer)
 {
+    _data = data;
+    _answer.clear();
+    _answer.resize(_num_output, 0);
+    _answer[answer - 1] = 1;
+    if (!_GetHeaderData())
+        return false;
     if (!_RecordHead())
         return false;
     if (!_RecordData())
         return false;
     //    copy(_data.begin(), _data.end(), ostream_iterator<int>(cout, " "));
+    cerr << "Data is successfully stored" << endl;
     return true;
 }
 

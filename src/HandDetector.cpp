@@ -22,6 +22,11 @@ _count_frame(0)
 
 cHandDetector::~cHandDetector()
 {
+    ReleaseImages();
+}
+
+void cHandDetector::ReleaseImages()
+{
     cvReleaseCapture(&_capture);
     cvReleaseImage(&_img);
     cvReleaseImage(&_gsImage);

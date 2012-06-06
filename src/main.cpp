@@ -31,15 +31,15 @@ static void _ReadHelp(const char *progname)
 bool _Finish()
 {
     char c;
-    cerr << "Do you want finish train?(y/n)" << endl;
+    cerr << "Continue train?(y/n)" << endl;
     while (true)
     {
         cin >> c;
         if (c == 'y' || c == 'Y')
-            return true;
-        else if (c == 'n' || c == 'N')
             return false;
-        cerr << "Please select \"y\" or \"n\"" << endl;
+        else if (c == 'n' || c == 'N')
+            return true;
+        cerr << "\"y\" or \"n\"!" << endl;
     }
 
     return false;
@@ -47,33 +47,37 @@ bool _Finish()
 
 void _TrainAnn()
 {
+    cHandDetector detector;
+    cCommandProcess command;
+    command.Init();
+    cAnnTrain train(command.GetArraySize());
     while (true)
     {
-        cHandDetector detector;
         if (detector.Start())
         {
             vector<int> myvect;
             myvect = detector.GetImageArray();
             cerr << "\n\nYou hand was detected\n\n" << endl;
-            cCommandProcess command;
-            command.Init();
             command.ShowCommands();
             while (true)
             {
                 cerr << "Please enter the number of command in range [1 .. "
                         << command.GetArraySize() << "]" << endl;
-                int input;
-                cin >> input;
-                if (command.ValidateInputData(input))
+                int answer;
+                cin >> answer;
+                if (command.ValidateInputData(answer))
                 {
-                    cAnnTrain train(myvect, command.GetArraySize());
-                    train.TrainNeiro(input);
+                    train.SaveData(myvect, answer);
                     break;
                 }
             }
         }
+        detector.ReleaseImages();
         if (_Finish())
+        {
+            train.TrainNeiro();
             break;
+        }
         else
             continue;
     }

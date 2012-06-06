@@ -16,13 +16,14 @@
 class cAnnTrain
 {
 public:
-    cAnnTrain(const std::vector<int> &, unsigned int);
+    cAnnTrain(unsigned int);
     cAnnTrain(const std::vector<int> &);
     cAnnTrain();
     ~cAnnTrain();
-    bool TrainNeiro(unsigned int);
+    bool TrainNeiro();
     bool ClearTrainFiles();
     int GetAnswer();
+    bool SaveData(const std::vector<int> & data, unsigned int);
 private:
     unsigned int _num_input;
     unsigned int _num_output;
@@ -36,7 +37,6 @@ private:
     std::vector<int> _answer;
 
     void _DoReadlink();
-    bool _SaveData();
     bool _RecordData();
     template<class T> bool _InitFile(T&, bool);
 
