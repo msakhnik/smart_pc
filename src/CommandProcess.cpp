@@ -76,10 +76,7 @@ string cCommandProcess::GetCommand(int number)
 
 bool cCommandProcess::ValidateInputData(unsigned int number)
 {
-    if (number > 0 && number <= _commands.size())
-        return true;
-    else
-        return false;
+    return (number > 0 && number <= _commands.size());
 }
 
 bool cCommandProcess::AddCommand(string command)

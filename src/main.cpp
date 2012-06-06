@@ -28,7 +28,65 @@ static void _ReadHelp(const char *progname)
             << endl;
 }
 
+bool _Finish()
+{
+    char c;
+    cerr << "Do you want finish train?(y/n)" << endl;
+    while (true)
+    {
+        cin >> c;
+        if (c == 'y' || c == 'Y')
+            return true;
+        else if (c == 'n' || c == 'N')
+            return false;
+        cerr << "Please select \"y\" or \"n\"" << endl;
+    }
+
+    return false;
+}
+
 void _TrainAnn()
+{
+    while (true)
+    {
+        cHandDetector detector;
+        if (detector.Start())
+        {
+            vector<int> myvect;
+            myvect = detector.GetImageArray();
+            cerr << "\n\nYou hand was detected\n\n" << endl;
+            cCommandProcess command;
+            command.Init();
+            command.ShowCommands();
+            while (true)
+            {
+                cerr << "Please enter the number of command in range [1 .. "
+                        << command.GetArraySize() << "]" << endl;
+                int input;
+                cin >> input;
+                if (command.ValidateInputData(input))
+                {
+                    cAnnTrain train(myvect, command.GetArraySize());
+                    train.TrainNeiro(input);
+                    break;
+                }
+            }
+        }
+        if (_Finish())
+            break;
+        else
+            continue;
+    }
+}
+
+void _ClearTrainFile()
+{
+    cerr << "in clear func" << endl;
+    cAnnTrain ann;
+    ann.ClearTrainFiles();
+}
+
+void _GetAnswer()
 {
     cHandDetector detector;
     if (detector.Start())
@@ -36,30 +94,9 @@ void _TrainAnn()
         vector<int> myvect;
         myvect = detector.GetImageArray();
         cerr << "\n\nYou hand was detected\n\n" << endl;
-        cCommandProcess command;
-        command.Init();
-        command.ShowCommands();
-        while (true)
-        {
-            cerr << "Please enter the number of command in range [1 .. "
-                    << command.GetArraySize() << "]" << endl;
-            int input;
-            cin >> input;
-            if (command.ValidateInputData(input))
-            {
-                cAnnTrain train(myvect, command.GetArraySize());
-                train.TrainNeiro(input);
-                break;
-            }
-        }
+        cAnnTrain check(myvect);
+        check.GetAnswer();
     }
-}
-
-void _ClearTrainFile()
-{
-    cerr << "in cleaer func" << endl;
-    cAnnTrain ann;
-    ann.ClearTrainFiles();
 }
 
 int main(int argc, char** argv)
@@ -69,6 +106,7 @@ int main(int argc, char** argv)
     {
         static struct option long_options[] = {
             { "train", no_argument, 0, 't'},
+            { "answer", no_argument, 0, 'a'},
             { "clear-train", no_argument, 0, 'c'},
             { "help", no_argument, 0, 'h'},
             { 0, 0, 0, 0}
@@ -76,7 +114,7 @@ int main(int argc, char** argv)
 
         int option_index = 0;
 
-        int c = getopt_long(argc, argv, "tch",
+        int c = getopt_long(argc, argv, "tach",
                             long_options, &option_index);
 
         if (c == -1)
@@ -90,6 +128,9 @@ int main(int argc, char** argv)
 
         case 't':
             _TrainAnn();
+            break;
+        case 'a':
+            _GetAnswer();
             break;
         case 'c':
             _ClearTrainFile();

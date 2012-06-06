@@ -30,8 +30,14 @@ _data(data)
 
 }
 
-cAnnTrain::cAnnTrain() :
-_num_input(10000)
+cAnnTrain::cAnnTrain()
+{
+    _DoReadlink();
+}
+
+cAnnTrain::cAnnTrain(const vector<int> & data) :
+    _num_input(10000),
+    _data(data)
 {
     _DoReadlink();
 }
@@ -193,4 +199,36 @@ bool cAnnTrain::_InitPerceptron()
     fann_set_activation_function_output(sAnn, FANN_SIGMOID_SYMMETRIC);
 
     return true;
+}
+
+int cAnnTrain::GetAnswer()
+{
+    fann_type *calc_out;
+    fann_type input[_data.size()];
+    sAnn = fann_create_from_file(_save_file.c_str());
+    for (unsigned int i = 0; i < _data.size(); ++i)
+        input[i] = _data[i];
+
+    calc_out = fann_run(sAnn, input);
+//    _GetMaxType(calc_out);
+    cerr << calc_out[0] << endl;
+    cerr << calc_out[1] << endl;
+    cerr << calc_out[2] << endl;
+    cerr << calc_out[3] << endl;
+
+    return 1;
+}
+
+int cAnnTrain::_GetMaxType(fann_type * data)
+{
+    float max = 0.0;
+    unsigned int pos = 0; 
+    for (unsigned int i = 0; i < 10000; ++i)
+        if (data[i] > max)
+        {
+            max = data[i];
+            pos = i;
+        }
+    
+    return 1;
 }

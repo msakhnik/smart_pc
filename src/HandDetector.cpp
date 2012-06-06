@@ -78,7 +78,7 @@ bool cHandDetector::_ShowImage()
         {
             _count_frame++;
             _DrawCircle();
-            cvShowImage("MainCamera", _img);
+            cvShowImage("MainCamera", _gsImage);
         }
         else
         {

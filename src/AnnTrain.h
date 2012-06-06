@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include<fann.h>
+#include "fann.h"
 #include <vector>
 #include<cstring>
 #include<string>
@@ -17,10 +17,12 @@ class cAnnTrain
 {
 public:
     cAnnTrain(const std::vector<int> &, unsigned int);
+    cAnnTrain(const std::vector<int> &);
     cAnnTrain();
     ~cAnnTrain();
     bool TrainNeiro(unsigned int);
     bool ClearTrainFiles();
+    int GetAnswer();
 private:
     unsigned int _num_input;
     unsigned int _num_output;
@@ -41,4 +43,5 @@ private:
     bool _RecordHead();
     bool _GetHeaderData();
     bool _InitPerceptron();
+    int _GetMaxType(fann_type *);
 };
