@@ -11,6 +11,7 @@
 #include <string>
 #include <iterator>
 #include <bits/stl_bvector.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -91,4 +92,21 @@ bool cCommandProcess::AddCommand(string command)
     fileCommand << "\n" << command;
     fileCommand.close();
     return true;
+}
+
+void cCommandProcess::ExecCommand(unsigned int command)
+{
+    system(_commands[command].c_str());
+}
+
+void cCommandProcess::ClearCommandFile()
+{
+    ofstream fileRecord;
+    fileRecord.open(_file_name.c_str());
+    if (!fileRecord.is_open())
+    {
+        cerr << "Command file not found" << endl;
+    }
+    fileRecord << "";
+    fileRecord.close();
 }

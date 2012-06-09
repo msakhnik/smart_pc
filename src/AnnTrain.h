@@ -17,13 +17,13 @@ class cAnnTrain
 {
 public:
     cAnnTrain(unsigned int);
-    cAnnTrain(const std::vector<int> &);
+    cAnnTrain(const std::vector<int> &, unsigned int);
     cAnnTrain();
     ~cAnnTrain();
     bool TrainNeiro();
     bool ClearTrainFiles();
-    int GetAnswer();
-    bool SaveData(const std::vector<int> & data, unsigned int);
+    int GetAnswer(const std::vector<int> &);
+    bool SaveData(const std::vector<int> &, unsigned int);
 private:
     unsigned int _num_input;
     unsigned int _num_output;

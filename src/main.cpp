@@ -23,6 +23,7 @@ static void _ReadHelp(const char *progname)
             "Options:\n"
             "  -t,--train\t\tTrain you perceptron\n"
             "  -c,--clear-train\t\tClear you train file\n"
+            "  -r,--answer\t\tRun proccess and getcommand\n"
             "  -h,--help\t\tThis is help message\n\n"
             "Example:\n"
             << endl;
@@ -47,32 +48,36 @@ bool _Finish()
 
 void _TrainAnn()
 {
-    cHandDetector detector;
     cCommandProcess command;
     command.Init();
+    if (command.GetArraySize() == 0)
+    {
+        cerr << "Command list is empty" << endl;
+        return;
+    }
+    cHandDetector detector;
     cAnnTrain train(command.GetArraySize());
     while (true)
     {
-        if (detector.Start())
+        if (!detector.Start())
+            break;
+        vector<int> myvect;
+        myvect = detector.GetImageArray();
+        cerr << "\n\nYou hand was detected\n\n" << endl;
+        command.ShowCommands();
+        while (true)
         {
-            vector<int> myvect;
-            myvect = detector.GetImageArray();
-            cerr << "\n\nYou hand was detected\n\n" << endl;
-            command.ShowCommands();
-            while (true)
+            cerr << "Please enter the number of command in range [1 .. "
+                    << command.GetArraySize() << "]" << endl;
+            int answer;
+            cin >> answer;
+            if (command.ValidateInputData(answer))
             {
-                cerr << "Please enter the number of command in range [1 .. "
-                        << command.GetArraySize() << "]" << endl;
-                int answer;
-                cin >> answer;
-                if (command.ValidateInputData(answer))
-                {
-                    train.SaveData(myvect, answer);
-                    break;
-                }
+                train.SaveData(myvect, answer);
+                break;
             }
         }
-        detector.ReleaseImages();
+        detector.ReleaseData();
         if (_Finish())
         {
             train.TrainNeiro();
@@ -85,40 +90,69 @@ void _TrainAnn()
 
 void _ClearTrainFile()
 {
-    cerr << "in clear func" << endl;
-    cAnnTrain ann;
-    ann.ClearTrainFiles();
+    cCommandProcess command;
+    command.Init();
+    cAnnTrain train(command.GetArraySize());
+    if (train.ClearTrainFiles())
+        cerr << "Train faile was saccessfuly rewrited" << endl;
 }
 
 void _GetAnswer()
 {
+    cCommandProcess command;
+    command.Init();
+    if (command.GetArraySize() == 0)
+    {
+        cerr << "Command list is empty, please add command " << endl;
+        return;
+    }
     cHandDetector detector;
+    cAnnTrain train(command.GetArraySize());
     if (detector.Start())
     {
         vector<int> myvect;
         myvect = detector.GetImageArray();
         cerr << "\n\nYou hand was detected\n\n" << endl;
-        cAnnTrain check(myvect);
-        check.GetAnswer();
+        command.ExecCommand(train.GetAnswer(myvect));
     }
+}
+
+void _ClearCommandList()
+{
+    cCommandProcess command;
+    command.Init();
+    command.ClearCommandFile();
+}
+
+void _AddCommand()
+{
+    string line;
+    cerr << "Enter command: ";
+    cin >> line;
+    cCommandProcess command;
+    command.Init();
+    command.AddCommand(line);
 }
 
 int main(int argc, char** argv)
 {
     char const* progname = _Basename(argv[0]);
+
     while (true)
     {
         static struct option long_options[] = {
             { "train", no_argument, 0, 't'},
-            { "answer", no_argument, 0, 'a'},
+            { "add", no_argument, 0, 'a'},
+            { "run", no_argument, 0, 'r'},
             { "clear-train", no_argument, 0, 'c'},
+            { "list-remove", no_argument, 0, 'l'},
             { "help", no_argument, 0, 'h'},
             { 0, 0, 0, 0}
         };
 
         int option_index = 0;
 
-        int c = getopt_long(argc, argv, "tach",
+        int c = getopt_long(argc, argv, "taclrh",
                             long_options, &option_index);
 
         if (c == -1)
@@ -133,11 +167,17 @@ int main(int argc, char** argv)
         case 't':
             _TrainAnn();
             break;
-        case 'a':
+        case 'r':
             _GetAnswer();
+            break;
+        case 'a':
+            _AddCommand();
             break;
         case 'c':
             _ClearTrainFile();
+            break;
+        case 'l':
+            _ClearCommandList();
             break;
 
         default:
@@ -145,54 +185,5 @@ int main(int argc, char** argv)
             return 1;
         }
     }
-
-    //cHandDetector detector;
-    /*if (detector.Start())
-    {
-        vector<int>  myvect;
-        myvect = detector.GetImageArray();
-
-        int i = 0;
-        for(std::vector<int>::iterator j=myvect.begin(); j!=myvect.end(); ++j)
-        {
-            cout << (*j );
-            if (i == 99)
-            {
-                cout << endl;
-                i = 0;
-                continue;
-            }
-            i++;
-        }l
-     * 
-     * 
-     * 
-     * 
-     * 
- 
-
-    }
-    vector<int> array(10, 0);
-    array.push_back(1);
-    cAnnTrain train(array);
-    if (train.TrainNeiro())
-    {
-        cerr << "Good train!!!" << endl;
-    }
-
-    //    train.ClearTrainFiles();
-
-    cCommandProcess command;
-    if (!command.Init())
-        return false;
-    else {
-        t = 1
-        command.ValidateInputData(t);
-        command.GetCommand(t);
-         
-        command.AddCommand("geany");
-        command.ShowCommands();
-    }
-     */
     return 0;
 }

@@ -34,8 +34,9 @@ cAnnTrain::cAnnTrain()
     _DoReadlink();
 }
 
-cAnnTrain::cAnnTrain(const vector<int> & data) :
+cAnnTrain::cAnnTrain(const vector<int> & data, unsigned int output) :
     _num_input(10000),
+    _num_output(output),
     _data(data)
 {
     _DoReadlink();
@@ -43,7 +44,7 @@ cAnnTrain::cAnnTrain(const vector<int> & data) :
 
 cAnnTrain::~cAnnTrain()
 {
-    cerr << "Destructor" << endl;
+//    if (sAnn == NULL)
     fann_destroy(sAnn);
 }
 
@@ -175,6 +176,7 @@ bool cAnnTrain::ClearTrainFiles()
     fileRecord << "";
     fileRecord.close();
     _count = -1;
+    sAnn = fann_create_standard(3, _num_input, 3, _num_output);
     _RecordHead();
     return true;
 }
@@ -205,34 +207,31 @@ bool cAnnTrain::_InitPerceptron()
     return true;
 }
 
-int cAnnTrain::GetAnswer()
+int cAnnTrain::GetAnswer(const vector<int> & data)
 {
     fann_type *calc_out;
-    fann_type input[_data.size()];
+    fann_type input[data.size()];
+
     sAnn = fann_create_from_file(_save_file.c_str());
-    for (unsigned int i = 0; i < _data.size(); ++i)
-        input[i] = _data[i];
+    for (unsigned int i = 0; i < data.size(); ++i)
+        input[i] = data[i];
 
     calc_out = fann_run(sAnn, input);
-//    _GetMaxType(calc_out);
-    cerr << calc_out[0] << endl;
-    cerr << calc_out[1] << endl;
-    cerr << calc_out[2] << endl;
-    cerr << calc_out[3] << endl;
 
-    return 1;
+    return _GetMaxType(calc_out);
 }
 
 int cAnnTrain::_GetMaxType(fann_type * data)
 {
-    float max = 0.0;
+    cerr << "In get answer" << endl;
+    float max = data[0];
     unsigned int pos = 0; 
-    for (unsigned int i = 0; i < 10000; ++i)
-        if (data[i] > max)
+    for (unsigned int i = 0; i < _num_output; ++i)
+        if (max < data[i])
         {
-            max = data[i];
             pos = i;
+            max = data[i];
         }
     
-    return 1;
+    return pos;
 }

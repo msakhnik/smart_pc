@@ -21,11 +21,10 @@ public:
     std::string GetCommand(int);
     bool ValidateInputData(unsigned int);
     bool AddCommand(std::string);
+    void ExecCommand(unsigned int);
+    void ClearCommandFile();
 
-    unsigned int GetArraySize()
-    {
-        return _commands.size();
-    }
+    unsigned int GetArraySize() { return _commands.size(); }
 private:
     bool _InitFile();
     std::string _DoReadlink();
