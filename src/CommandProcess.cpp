@@ -1,9 +1,23 @@
-/* 
- * File:   CommandProcess.cpp
- * Author: morwin
- * 
- * Created on 30 травня 2012, 13:59
- */
+//
+// CommandProccess.cpp
+//
+//     Created: 16.06.2012
+//      Author: Misha Sakhnik
+//
+// This file is part of SmartPc.
+//
+// SmartPc is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Asf Player License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// SmartPc is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with SmartPc.  If not, see <http://www.gnu.org/licenses/>
 
 #include "CommandProcess.h"
 #include <iostream>
@@ -16,11 +30,7 @@
 using namespace std;
 
 cCommandProcess::cCommandProcess() :
-_file_name(_DoReadlink())
-{
-}
-
-cCommandProcess::~cCommandProcess()
+_file_name("../data/commands.data")
 {
 }
 
@@ -30,7 +40,7 @@ bool cCommandProcess::Init()
     fileCommand.open(_file_name.c_str());
     if (!fileCommand.is_open())
     {
-        cerr << "Command file not found" << endl;
+        cerr << "File " << _file_name <<  " not found" << endl;
         return false;
     }
 
@@ -44,40 +54,21 @@ bool cCommandProcess::Init()
     return true;
 }
 
-string cCommandProcess::_DoReadlink()
-{
-    char buf[256];
-    if (!readlink("/proc/self/exe", buf, sizeof (buf)))
-        cerr << "Cannot to read path to file" << endl;
-    vector<string> temp;
-    string line(buf);
-    istringstream is(line);
-    string s;
-    while (getline(is, s, '/'))
-        temp.push_back(s.c_str());
-    line = "";
-    for (unsigned int i = 0; i < temp.size() - 2; i++)
-        line += temp[i] + "/";
-    s = "data/commands.data";
-    line += s;
-    return line.c_str();
-}
-
 void cCommandProcess::ShowCommands()
 {
     vector<string>::iterator it;
-    for (unsigned int i = 0; i < _commands.size(); i++)
-        cerr << (i + 1) << ". " << _commands[i] << endl;
+    for (it = _commands.begin(); it != _commands.end(); ++it)
+        cerr <<  distance(_commands.begin(), it) + 1 << ". " << *it << endl;
 }
 
-string cCommandProcess::GetCommand(int number)
+string cCommandProcess::GetCommand(int position) const
 {
-    return _commands[number - 1];
+    return _commands[position - 1];
 }
 
-bool cCommandProcess::ValidateInputData(unsigned int number)
+bool cCommandProcess::ValidateInputData(unsigned int position) const
 {
-    return (number > 0 && number <= _commands.size());
+    return (position > 0 && position <= _commands.size());
 }
 
 bool cCommandProcess::AddCommand(string command)
@@ -86,7 +77,7 @@ bool cCommandProcess::AddCommand(string command)
     fileCommand.open(_file_name.c_str(), ios::app);
     if (!fileCommand.is_open())
     {
-        cerr << "Command file not found" << endl;
+        cerr << "File " << _file_name <<  " not found" << endl;
         return false;
     }
     fileCommand << "\n" << command;
@@ -96,7 +87,9 @@ bool cCommandProcess::AddCommand(string command)
 
 void cCommandProcess::ExecCommand(unsigned int command)
 {
-    system(_commands[command].c_str());
+    if (system(_commands[command].c_str()))
+        cerr << "Cannot run " << _commands[command].c_str()
+                << " command" << endl;
 }
 
 void cCommandProcess::ClearCommandFile()
@@ -105,7 +98,7 @@ void cCommandProcess::ClearCommandFile()
     fileRecord.open(_file_name.c_str());
     if (!fileRecord.is_open())
     {
-        cerr << "Command file not found" << endl;
+        cerr << "File " << _file_name <<  " not found" << endl;
     }
     fileRecord << "";
     fileRecord.close();

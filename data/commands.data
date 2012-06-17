@@ -1,2 +1,4 @@
-
 ls
+ls -al
+echo "Hello world!!!"
+geany

@@ -1,0 +1,169 @@
+\hypertarget{classcCommandProcess}{
+\section{cCommandProcess Class Reference}
+\label{classcCommandProcess}\index{cCommandProcess@{cCommandProcess}}
+}
+
+
+Class for work with commands.  
+
+
+
+
+{\ttfamily \#include $<$CommandProcess.h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcCommandProcess_a14f5fd372a266c4905eacd0a4a04ab90}{
+\hyperlink{classcCommandProcess_a14f5fd372a266c4905eacd0a4a04ab90}{cCommandProcess} ()}
+\label{classcCommandProcess_a14f5fd372a266c4905eacd0a4a04ab90}
+
+\begin{DoxyCompactList}\small\item\em Construct. Set the \_\-file\_\-name. \end{DoxyCompactList}\item 
+bool \hyperlink{classcCommandProcess_acbe3099e3c7ea7e6f05258105bf63555}{Init} ()
+\begin{DoxyCompactList}\small\item\em Initialization data. \end{DoxyCompactList}\item 
+\hypertarget{classcCommandProcess_a7b044faa9442ab406c5b39969f5d256d}{
+void \hyperlink{classcCommandProcess_a7b044faa9442ab406c5b39969f5d256d}{ShowCommands} ()}
+\label{classcCommandProcess_a7b044faa9442ab406c5b39969f5d256d}
+
+\begin{DoxyCompactList}\small\item\em Show commands list. \end{DoxyCompactList}\item 
+std::string \hyperlink{classcCommandProcess_ae0cd3a821061315489b79778a916e153}{GetCommand} (int position) const 
+\begin{DoxyCompactList}\small\item\em Get command by position. \end{DoxyCompactList}\item 
+bool \hyperlink{classcCommandProcess_a772e2a1a70fbc0664ac0c3f147d228ba}{ValidateInputData} (unsigned int position) const 
+\begin{DoxyCompactList}\small\item\em Get Validate input data. \end{DoxyCompactList}\item 
+bool \hyperlink{classcCommandProcess_a59680f067cb8cd12e656316eb88b5c49}{AddCommand} (std::string command)
+\begin{DoxyCompactList}\small\item\em Add new command. \end{DoxyCompactList}\item 
+void \hyperlink{classcCommandProcess_a97d77e430582c43476c9e08f62891820}{ExecCommand} (unsigned int command)
+\begin{DoxyCompactList}\small\item\em Execute command. \end{DoxyCompactList}\item 
+\hypertarget{classcCommandProcess_a110276a333c3dd6276e552e1b45d7239}{
+void \hyperlink{classcCommandProcess_a110276a333c3dd6276e552e1b45d7239}{ClearCommandFile} ()}
+\label{classcCommandProcess_a110276a333c3dd6276e552e1b45d7239}
+
+\begin{DoxyCompactList}\small\item\em Clear command file. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{classcCommandProcess_a3bf9814ce9c73562fd1ad4e3552f44c9}{GetArraySize} ()
+\begin{DoxyCompactList}\small\item\em Get count of commands. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for work with commands. 
+
+Provides management the commands lists. Can add, remove, get list and run command. 
+
+\subsection{Member Function Documentation}
+\hypertarget{classcCommandProcess_a59680f067cb8cd12e656316eb88b5c49}{
+\index{cCommandProcess@{cCommandProcess}!AddCommand@{AddCommand}}
+\index{AddCommand@{AddCommand}!cCommandProcess@{cCommandProcess}}
+\subsubsection[{AddCommand}]{\setlength{\rightskip}{0pt plus 5cm}bool cCommandProcess::AddCommand (
+\begin{DoxyParamCaption}
+\item[{std::string}]{command}
+\end{DoxyParamCaption}
+)}}
+\label{classcCommandProcess_a59680f067cb8cd12e656316eb88b5c49}
+
+
+Add new command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & Command name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return true if command was successful added 
+\end{DoxyReturn}
+\hypertarget{classcCommandProcess_a97d77e430582c43476c9e08f62891820}{
+\index{cCommandProcess@{cCommandProcess}!ExecCommand@{ExecCommand}}
+\index{ExecCommand@{ExecCommand}!cCommandProcess@{cCommandProcess}}
+\subsubsection[{ExecCommand}]{\setlength{\rightskip}{0pt plus 5cm}void cCommandProcess::ExecCommand (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{command}
+\end{DoxyParamCaption}
+)}}
+\label{classcCommandProcess_a97d77e430582c43476c9e08f62891820}
+
+
+Execute command. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & Command name \\
+\hline
+\end{DoxyParams}
+\hypertarget{classcCommandProcess_a3bf9814ce9c73562fd1ad4e3552f44c9}{
+\index{cCommandProcess@{cCommandProcess}!GetArraySize@{GetArraySize}}
+\index{GetArraySize@{GetArraySize}!cCommandProcess@{cCommandProcess}}
+\subsubsection[{GetArraySize}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int cCommandProcess::GetArraySize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}}
+\label{classcCommandProcess_a3bf9814ce9c73562fd1ad4e3552f44c9}
+
+
+Get count of commands. 
+
+\begin{DoxyReturn}{Returns}
+return count of elements array 
+\end{DoxyReturn}
+\hypertarget{classcCommandProcess_ae0cd3a821061315489b79778a916e153}{
+\index{cCommandProcess@{cCommandProcess}!GetCommand@{GetCommand}}
+\index{GetCommand@{GetCommand}!cCommandProcess@{cCommandProcess}}
+\subsubsection[{GetCommand}]{\setlength{\rightskip}{0pt plus 5cm}std::string cCommandProcess::GetCommand (
+\begin{DoxyParamCaption}
+\item[{int}]{position}
+\end{DoxyParamCaption}
+) const}}
+\label{classcCommandProcess_ae0cd3a821061315489b79778a916e153}
+
+
+Get command by position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & Command position in \_\-commands array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+command name 
+\end{DoxyReturn}
+\hypertarget{classcCommandProcess_acbe3099e3c7ea7e6f05258105bf63555}{
+\index{cCommandProcess@{cCommandProcess}!Init@{Init}}
+\index{Init@{Init}!cCommandProcess@{cCommandProcess}}
+\subsubsection[{Init}]{\setlength{\rightskip}{0pt plus 5cm}bool cCommandProcess::Init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classcCommandProcess_acbe3099e3c7ea7e6f05258105bf63555}
+
+
+Initialization data. 
+
+Opening and reading data and filled \_\-command array. \begin{DoxyReturn}{Returns}
+Return false if file not found. True if file found and \_\-command array successfully filled 
+\end{DoxyReturn}
+\hypertarget{classcCommandProcess_a772e2a1a70fbc0664ac0c3f147d228ba}{
+\index{cCommandProcess@{cCommandProcess}!ValidateInputData@{ValidateInputData}}
+\index{ValidateInputData@{ValidateInputData}!cCommandProcess@{cCommandProcess}}
+\subsubsection[{ValidateInputData}]{\setlength{\rightskip}{0pt plus 5cm}bool cCommandProcess::ValidateInputData (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{position}
+\end{DoxyParamCaption}
+) const}}
+\label{classcCommandProcess_a772e2a1a70fbc0664ac0c3f147d228ba}
+
+
+Get Validate input data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & Command position in \_\-commands array \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return false if position out of the range 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+/home/morwin/work/smart\_\-pc/src/CommandProcess.h\end{DoxyCompactItemize}
