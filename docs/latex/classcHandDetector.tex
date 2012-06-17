@@ -2,24 +2,110 @@
 \section{cHandDetector Class Reference}
 \label{classcHandDetector}\index{cHandDetector@{cHandDetector}}
 }
+
+
+Class for find you gesteurs on webcam.  
+
+
+
+
+{\ttfamily \#include $<$HandDetector.h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classcHandDetector_a56bd5b66bff33fe375e6a4e97b394481}{
-bool {\bfseries Start} ()}
-\label{classcHandDetector_a56bd5b66bff33fe375e6a4e97b394481}
+\hyperlink{classcHandDetector_ad40baa578448077b89cf5a2d44401c11}{cHandDetector} ()
+\begin{DoxyCompactList}\small\item\em Construct. \end{DoxyCompactList}\item 
+virtual \hyperlink{classcHandDetector_a27c48453e257b2e73ec0557484568a38}{$\sim$cHandDetector} ()
+\begin{DoxyCompactList}\small\item\em Destruct. \end{DoxyCompactList}\item 
+bool \hyperlink{classcHandDetector_a56bd5b66bff33fe375e6a4e97b394481}{Start} ()
+\begin{DoxyCompactList}\small\item\em Start detecting. \end{DoxyCompactList}\item 
+std::vector$<$ int $>$ \& \hyperlink{classcHandDetector_a10bca4c52203b33a453f4a7017d03d65}{GetImageArray} ()
+\begin{DoxyCompactList}\small\item\em Get array with image data. \end{DoxyCompactList}\item 
+void \hyperlink{classcHandDetector_acadedbb4524af49f115cc133a47ba69d}{ReleaseData} ()
+\begin{DoxyCompactList}\small\item\em Destroy data. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
-\item 
+
+\subsection{Detailed Description}
+Class for find you gesteurs on webcam. 
+
+Provides record and finding hand 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcHandDetector_ad40baa578448077b89cf5a2d44401c11}{
+\index{cHandDetector@{cHandDetector}!cHandDetector@{cHandDetector}}
+\index{cHandDetector@{cHandDetector}!cHandDetector@{cHandDetector}}
+\subsubsection[{cHandDetector}]{\setlength{\rightskip}{0pt plus 5cm}cHandDetector::cHandDetector (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classcHandDetector_ad40baa578448077b89cf5a2d44401c11}
+
+
+Construct. 
+
+This section to initialise variables \hypertarget{classcHandDetector_a27c48453e257b2e73ec0557484568a38}{
+\index{cHandDetector@{cHandDetector}!$\sim$cHandDetector@{$\sim$cHandDetector}}
+\index{$\sim$cHandDetector@{$\sim$cHandDetector}!cHandDetector@{cHandDetector}}
+\subsubsection[{$\sim$cHandDetector}]{\setlength{\rightskip}{0pt plus 5cm}virtual cHandDetector::$\sim$cHandDetector (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}}
+\label{classcHandDetector_a27c48453e257b2e73ec0557484568a38}
+
+
+Destruct. 
+
+Release image, destroy window and clear data array 
+
+\subsection{Member Function Documentation}
 \hypertarget{classcHandDetector_a10bca4c52203b33a453f4a7017d03d65}{
-std::vector$<$ int $>$ \& {\bfseries GetImageArray} ()}
+\index{cHandDetector@{cHandDetector}!GetImageArray@{GetImageArray}}
+\index{GetImageArray@{GetImageArray}!cHandDetector@{cHandDetector}}
+\subsubsection[{GetImageArray}]{\setlength{\rightskip}{0pt plus 5cm}std::vector$<$int$>$\& cHandDetector::GetImageArray (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
 \label{classcHandDetector_a10bca4c52203b33a453f4a7017d03d65}
 
-\item 
+
+Get array with image data. 
+
+\begin{DoxyReturn}{Returns}
+vector from image data 
+\end{DoxyReturn}
 \hypertarget{classcHandDetector_acadedbb4524af49f115cc133a47ba69d}{
-void {\bfseries ReleaseData} ()}
+\index{cHandDetector@{cHandDetector}!ReleaseData@{ReleaseData}}
+\index{ReleaseData@{ReleaseData}!cHandDetector@{cHandDetector}}
+\subsubsection[{ReleaseData}]{\setlength{\rightskip}{0pt plus 5cm}void cHandDetector::ReleaseData (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
 \label{classcHandDetector_acadedbb4524af49f115cc133a47ba69d}
 
-\end{DoxyCompactItemize}
+
+Destroy data. 
+
+Release image, destroy window and clear data array \hypertarget{classcHandDetector_a56bd5b66bff33fe375e6a4e97b394481}{
+\index{cHandDetector@{cHandDetector}!Start@{Start}}
+\index{Start@{Start}!cHandDetector@{cHandDetector}}
+\subsubsection[{Start}]{\setlength{\rightskip}{0pt plus 5cm}bool cHandDetector::Start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classcHandDetector_a56bd5b66bff33fe375e6a4e97b394481}
+
+
+Start detecting. 
+
+Turn on camera then create window and showing image on screen. \begin{DoxyReturn}{Returns}
+False when cannot create window or turn on camera 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}

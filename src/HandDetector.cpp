@@ -1,9 +1,23 @@
-/* 
- * File:   cHandDetector.cpp
- * Author: morwin
- * 
- * Created on 12 травня 2012, 11:00
- */
+//
+// HandDetector.cpp
+//
+//     Created: 16.06.2012
+//      Author: Misha Sakhnik
+//
+// This file is part of SmartPc.
+//
+// SmartPc is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Asf Player License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// SmartPc is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with SmartPc.  If not, see <http://www.gnu.org/licenses/>
 #include <iostream>
 
 #include "HandDetector.h"
@@ -56,10 +70,9 @@ bool cHandDetector::_TurnOnCamera()
     assert(_capture);
     if (!_capture)
     {
-        cerr << "Turn on camera failed" << endl;
+        cerr << "Cannot turn on camera" << endl;
         return false;
     }
-
     return true;
 }
 
@@ -76,7 +89,7 @@ bool cHandDetector::_ShowImage()
         _img = cvQueryFrame(_capture);
         if (!_img)
         {
-            cerr << "Don't get image from camera" << endl;
+            cerr << "Cannot to get image from camera" << endl;
             return false;
         }
         _TransformColor();
@@ -168,7 +181,7 @@ bool cHandDetector::_FindContours()
     return true;
 
 }
-// we draw red circle
+// draw red circle
 
 void cHandDetector::_DrawCircle()
 {

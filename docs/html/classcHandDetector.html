@@ -65,17 +65,127 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 <div class="contents">
 <!-- doxytag: class="cHandDetector" -->
+<p>Class for find you gesteurs on webcam.  
+ <a href="classcHandDetector.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="HandDetector_8h_source.html">HandDetector.h</a>&gt;</code></p>
+
 <p><a href="classcHandDetector-members.html">List of all members.</a></p>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a56bd5b66bff33fe375e6a4e97b394481"></a><!-- doxytag: member="cHandDetector::Start" ref="a56bd5b66bff33fe375e6a4e97b394481" args="()" -->
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Start</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a10bca4c52203b33a453f4a7017d03d65"></a><!-- doxytag: member="cHandDetector::GetImageArray" ref="a10bca4c52203b33a453f4a7017d03d65" args="()" -->
-std::vector&lt; int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetImageArray</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acadedbb4524af49f115cc133a47ba69d"></a><!-- doxytag: member="cHandDetector::ReleaseData" ref="acadedbb4524af49f115cc133a47ba69d" args="()" -->
-void&#160;</td><td class="memItemRight" valign="bottom"><b>ReleaseData</b> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcHandDetector.html#ad40baa578448077b89cf5a2d44401c11">cHandDetector</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct.  <a href="#ad40baa578448077b89cf5a2d44401c11"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcHandDetector.html#a27c48453e257b2e73ec0557484568a38">~cHandDetector</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct.  <a href="#a27c48453e257b2e73ec0557484568a38"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcHandDetector.html#a56bd5b66bff33fe375e6a4e97b394481">Start</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Start detecting.  <a href="#a56bd5b66bff33fe375e6a4e97b394481"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcHandDetector.html#a10bca4c52203b33a453f4a7017d03d65">GetImageArray</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Get array with image data.  <a href="#a10bca4c52203b33a453f4a7017d03d65"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcHandDetector.html#acadedbb4524af49f115cc133a47ba69d">ReleaseData</a> ()</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy data.  <a href="#acadedbb4524af49f115cc133a47ba69d"></a><br/></td></tr>
 </table>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>Class for find you gesteurs on webcam. </p>
+<p>Provides record and finding hand </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="ad40baa578448077b89cf5a2d44401c11"></a><!-- doxytag: member="cHandDetector::cHandDetector" ref="ad40baa578448077b89cf5a2d44401c11" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cHandDetector::cHandDetector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Construct. </p>
+<p>This section to initialise variables </p>
+
+</div>
+</div>
+<a class="anchor" id="a27c48453e257b2e73ec0557484568a38"></a><!-- doxytag: member="cHandDetector::~cHandDetector" ref="a27c48453e257b2e73ec0557484568a38" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual cHandDetector::~cHandDetector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [virtual]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Destruct. </p>
+<p>Release image, destroy window and clear data array </p>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a10bca4c52203b33a453f4a7017d03d65"></a><!-- doxytag: member="cHandDetector::GetImageArray" ref="a10bca4c52203b33a453f4a7017d03d65" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;int&gt;&amp; cHandDetector::GetImageArray </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get array with image data. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>vector from image data </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="acadedbb4524af49f115cc133a47ba69d"></a><!-- doxytag: member="cHandDetector::ReleaseData" ref="acadedbb4524af49f115cc133a47ba69d" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cHandDetector::ReleaseData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Destroy data. </p>
+<p>Release image, destroy window and clear data array </p>
+
+</div>
+</div>
+<a class="anchor" id="a56bd5b66bff33fe375e6a4e97b394481"></a><!-- doxytag: member="cHandDetector::Start" ref="a56bd5b66bff33fe375e6a4e97b394481" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool cHandDetector::Start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Start detecting. </p>
+<p>Turn on camera then create window and showing image on screen. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>False when cannot create window or turn on camera </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/morwin/work/smart_pc/src/<a class="el" href="HandDetector_8h_source.html">HandDetector.h</a></li>
 </ul>
@@ -94,7 +204,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ReleaseData</b> ()</t
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jun 17 2012 11:37:23 for SmartPc by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Jun 17 2012 19:14:56 for SmartPc by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

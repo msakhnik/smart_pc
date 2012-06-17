@@ -1,8 +1,11 @@
 #include <iostream>
 #include "../src/CommandProcess.h"
+#include "../src/HandDetector.h"
 #include <gtest/gtest.h>
+#include <numeric>
 
 cCommandProcess command;
+cHandDetector detector;
 
 TEST(cCommandProcess, ShowCommand)
 {
@@ -20,7 +23,14 @@ TEST(cCommandProcess, ValidateInputData)
 TEST(cCommandProcess, ExecCommand)
 {
     ASSERT_NO_FATAL_FAILURE(command.ExecCommand(command.GetArraySize()));
-//    ASSERT_ANY_THROW(command.ExecCommand(command.GetArraySize()));
+// ASSERT_ANY_THROW(command.ExecCommand(command.GetArraySize()));
+}
+
+TEST(cHandDetector, Start)
+{
+    ASSERT_TRUE(detector.Start());
+    ASSERT_EQ(detector.GetImageArray().size(), 10000);
+    ASSERT_GT(std::accumulate(detector.GetImageArray().begin(), detector.GetImageArray().end(), 0), 0);
 }
 
 using namespace std;

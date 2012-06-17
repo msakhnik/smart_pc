@@ -86,24 +86,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00025"></a>00025 <span class="preprocessor">#include &lt;string&gt;</span>
 <a name="l00026"></a>00026 <span class="preprocessor">#include &lt;fstream&gt;</span>
 <a name="l00027"></a>00027 
-<a name="l00033"></a><a class="code" href="classcCommandProcess.html">00033</a> <span class="keyword">class </span><a class="code" href="classcCommandProcess.html" title="Class for work with commands.">cCommandProcess</a>
-<a name="l00034"></a>00034 {
-<a name="l00035"></a>00035 <span class="keyword">public</span>:
-<a name="l00039"></a>00039     <a class="code" href="classcCommandProcess.html#a14f5fd372a266c4905eacd0a4a04ab90" title="Construct. Set the _file_name.">cCommandProcess</a>();
-<a name="l00047"></a>00047     <span class="keywordtype">bool</span> <a class="code" href="classcCommandProcess.html#acbe3099e3c7ea7e6f05258105bf63555" title="Initialization data.">Init</a>();
-<a name="l00051"></a>00051     <span class="keywordtype">void</span> <a class="code" href="classcCommandProcess.html#a7b044faa9442ab406c5b39969f5d256d" title="Show commands list.">ShowCommands</a>();
-<a name="l00057"></a>00057     std::string <a class="code" href="classcCommandProcess.html#ae0cd3a821061315489b79778a916e153" title="Get command by position.">GetCommand</a>(<span class="keywordtype">int</span> position) <span class="keyword">const</span>;
-<a name="l00063"></a>00063     <span class="keywordtype">bool</span> <a class="code" href="classcCommandProcess.html#a772e2a1a70fbc0664ac0c3f147d228ba" title="Get Validate input data.">ValidateInputData</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> position) <span class="keyword">const</span>;
-<a name="l00069"></a>00069     <span class="keywordtype">bool</span> <a class="code" href="classcCommandProcess.html#a59680f067cb8cd12e656316eb88b5c49" title="Add new command.">AddCommand</a>(std::string command);
-<a name="l00074"></a>00074     <span class="keywordtype">void</span> <a class="code" href="classcCommandProcess.html#a97d77e430582c43476c9e08f62891820" title="Execute command.">ExecCommand</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> command);
-<a name="l00078"></a>00078     <span class="keywordtype">void</span> <a class="code" href="classcCommandProcess.html#a110276a333c3dd6276e552e1b45d7239" title="Clear command file.">ClearCommandFile</a>();
-<a name="l00083"></a><a class="code" href="classcCommandProcess.html#a3bf9814ce9c73562fd1ad4e3552f44c9">00083</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classcCommandProcess.html#a3bf9814ce9c73562fd1ad4e3552f44c9" title="Get count of commands.">GetArraySize</a>() { <span class="keywordflow">return</span> _commands.size(); }
-<a name="l00084"></a>00084 <span class="keyword">private</span>:
-<a name="l00085"></a>00085     <span class="keywordtype">bool</span> _InitFile();
-<a name="l00086"></a>00086     std::vector&lt;std::string&gt;_commands;
-<a name="l00087"></a>00087 
-<a name="l00088"></a>00088     std::string _file_name;
-<a name="l00089"></a>00089 };
+<a name="l00034"></a><a class="code" href="classcCommandProcess.html">00034</a> <span class="keyword">class </span><a class="code" href="classcCommandProcess.html" title="Class for work with commands.">cCommandProcess</a>
+<a name="l00035"></a>00035 {
+<a name="l00036"></a>00036 <span class="keyword">public</span>:
+<a name="l00040"></a>00040     <a class="code" href="classcCommandProcess.html#a14f5fd372a266c4905eacd0a4a04ab90" title="Construct. Set the _file_name.">cCommandProcess</a>();
+<a name="l00048"></a>00048     <span class="keywordtype">bool</span> <a class="code" href="classcCommandProcess.html#acbe3099e3c7ea7e6f05258105bf63555" title="Initialization data.">Init</a>();
+<a name="l00052"></a>00052     <span class="keywordtype">void</span> <a class="code" href="classcCommandProcess.html#a7b044faa9442ab406c5b39969f5d256d" title="Show commands list.">ShowCommands</a>();
+<a name="l00058"></a>00058     std::string <a class="code" href="classcCommandProcess.html#ae0cd3a821061315489b79778a916e153" title="Get command by position.">GetCommand</a>(<span class="keywordtype">int</span> position) <span class="keyword">const</span>;
+<a name="l00064"></a>00064     <span class="keywordtype">bool</span> <a class="code" href="classcCommandProcess.html#a772e2a1a70fbc0664ac0c3f147d228ba" title="Get Validate input data.">ValidateInputData</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> position) <span class="keyword">const</span>;
+<a name="l00070"></a>00070     <span class="keywordtype">bool</span> <a class="code" href="classcCommandProcess.html#a59680f067cb8cd12e656316eb88b5c49" title="Add new command.">AddCommand</a>(std::string command);
+<a name="l00075"></a>00075     <span class="keywordtype">void</span> <a class="code" href="classcCommandProcess.html#a97d77e430582c43476c9e08f62891820" title="Execute command.">ExecCommand</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> command);
+<a name="l00079"></a>00079     <span class="keywordtype">void</span> <a class="code" href="classcCommandProcess.html#a110276a333c3dd6276e552e1b45d7239" title="Clear command file.">ClearCommandFile</a>();
+<a name="l00084"></a><a class="code" href="classcCommandProcess.html#aec7a504a34ffddd70ab8ca24dca723ea">00084</a>     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classcCommandProcess.html#aec7a504a34ffddd70ab8ca24dca723ea" title="Get count of commands.">GetArraySize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _commands.size(); }
+<a name="l00085"></a>00085 <span class="keyword">private</span>:
+<a name="l00086"></a>00086     <span class="keywordtype">bool</span> _InitFile();
+<a name="l00087"></a>00087     std::vector&lt;std::string&gt;_commands;
+<a name="l00088"></a>00088 
+<a name="l00089"></a>00089     std::string _file_name;
+<a name="l00090"></a>00090 };
 </pre></div></div>
 </div>
 <!-- window showing the filter options -->
@@ -120,7 +120,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Jun 17 2012 11:37:23 for SmartPc by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Jun 17 2012 19:14:56 for SmartPc by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
