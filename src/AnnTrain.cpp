@@ -1,9 +1,23 @@
-/* 
- * File:   AnnTrain.cpp
- * Author: morwin
- * 
- * Created on 17 травня 2012, 10:13
- */
+//
+// AnnTrain.cpp
+//
+//     Created: 16.06.2012
+//     Author: Misha Sakhnik
+//
+// This file is part of SmartPc.
+//
+// SmartPc is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Asf Player License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// SmartPc is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with SmartPc.  If not, see <http://www.gnu.org/licenses/>
 
 #include "AnnTrain.h"
 #include<iostream>
@@ -19,27 +33,14 @@
 
 using namespace std;
 
-cAnnTrain::cAnnTrain(unsigned int output) :
-_num_input(10000),
-_num_output(output),
-_count(0)
+cAnnTrain::cAnnTrain(unsigned int output, unsigned int size) :
+                                        _num_input(size),
+                                        _num_output(output),
+                                        _count(0),
+                                        _train_file("../data/xor.data"),
+                                        _save_file("../data/xor_float.net")
 {
     //    copy(_answer.begin(), _answer.end(), ostream_iterator<int>(cout, " "));
-    _DoReadlink();
-
-}
-
-cAnnTrain::cAnnTrain()
-{
-    _DoReadlink();
-}
-
-cAnnTrain::cAnnTrain(const vector<int> & data, unsigned int output) :
-    _num_input(10000),
-    _num_output(output),
-    _data(data)
-{
-    _DoReadlink();
 }
 
 cAnnTrain::~cAnnTrain()
@@ -63,26 +64,6 @@ bool cAnnTrain::TrainNeiro()
     fann_train_on_file(sAnn, _train_file.c_str(), max_epochs, epochs_between_reports, desired_error);
     fann_save(sAnn, _save_file.c_str());
     return true;
-}
-
-void cAnnTrain::_DoReadlink()
-{
-    char buf[256];
-    if (!readlink("/proc/self/exe", buf, sizeof (buf)))
-        cerr << "Cannot to read path to file" << endl;
-    vector<string> temp;
-    string line(buf);
-    istringstream is(line);
-    string s;
-    while (getline(is, s, '/'))
-        temp.push_back(s.c_str());
-    line = "";
-    for (unsigned int i = 0; i < temp.size() - 2; i++)
-        line += temp[i] + "/";
-    s = "/data/xor.data";
-    _train_file = line + s;
-    s = "/data/xor_float.net";
-    _save_file = line + s;
 }
 
 bool cAnnTrain::SaveData(const vector<int> & data, unsigned int answer)

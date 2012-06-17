@@ -1,8 +1,10 @@
 #include <iostream>
-#include "../src/CommandProcess.h"
-#include "../src/HandDetector.h"
 #include <gtest/gtest.h>
 #include <numeric>
+
+#include "../src/CommandProcess.h"
+#include "../src/HandDetector.h"
+#include "../src/AnnTrain.h"
 
 cCommandProcess command;
 cHandDetector detector;
@@ -32,8 +34,6 @@ TEST(cHandDetector, Start)
     ASSERT_EQ(detector.GetImageArray().size(), 10000);
     ASSERT_GT(std::accumulate(detector.GetImageArray().begin(), detector.GetImageArray().end(), 0), 0);
 }
-
-using namespace std;
 
 int test_main(int argc, char** argv)
 {

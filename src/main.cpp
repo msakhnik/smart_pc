@@ -56,7 +56,7 @@ void _TrainAnn()
         return;
     }
     cHandDetector detector;
-    cAnnTrain train(command.GetArraySize());
+    cAnnTrain train(command.GetArraySize(), detector.GetImageArray().size());
     while (true)
     {
         if (!detector.Start())
@@ -91,8 +91,9 @@ void _TrainAnn()
 void _ClearTrainFile()
 {
     cCommandProcess command;
+    cHandDetector detector;
     command.Init();
-    cAnnTrain train(command.GetArraySize());
+    cAnnTrain train(command.GetArraySize(), detector.GetImageArray().size());
     if (train.ClearTrainFiles())
         cerr << "Train faile was saccessfuly rewrited" << endl;
 }
@@ -107,7 +108,7 @@ void _GetAnswer()
         return;
     }
     cHandDetector detector;
-    cAnnTrain train(command.GetArraySize());
+    cAnnTrain train(command.GetArraySize(), detector.GetImageArray().size());
     if (detector.Start())
     {
         vector<int> myvect;

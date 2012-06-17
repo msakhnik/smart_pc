@@ -2,39 +2,142 @@
 \section{cAnnTrain Class Reference}
 \label{classcAnnTrain}\index{cAnnTrain@{cAnnTrain}}
 }
+
+
+Class for work with artificial neural network.  
+
+
+
+
+{\ttfamily \#include $<$AnnTrain.h$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classcAnnTrain_afc76d6bda29aada6396f6427fb9b5842}{
-{\bfseries cAnnTrain} (unsigned int)}
-\label{classcAnnTrain_afc76d6bda29aada6396f6427fb9b5842}
+\hyperlink{classcAnnTrain_a5863d11692c47f78e79dd55dfe9c8f3c}{cAnnTrain} (unsigned int output, unsigned int size)
+\begin{DoxyCompactList}\small\item\em Construct. Init additional variables. \end{DoxyCompactList}\item 
+\hypertarget{classcAnnTrain_ad0eadfbd083a08d25c327b51fefba004}{
+\hyperlink{classcAnnTrain_ad0eadfbd083a08d25c327b51fefba004}{$\sim$cAnnTrain} ()}
+\label{classcAnnTrain_ad0eadfbd083a08d25c327b51fefba004}
 
-\item 
-\hypertarget{classcAnnTrain_ad9040e366b1927db664ba132e08a5930}{
-{\bfseries cAnnTrain} (const std::vector$<$ int $>$ \&, unsigned int)}
-\label{classcAnnTrain_ad9040e366b1927db664ba132e08a5930}
+\begin{DoxyCompactList}\small\item\em Destructor. Destroy fann structure. \end{DoxyCompactList}\item 
+bool \hyperlink{classcAnnTrain_a71367bc818ee45d7ae218de3e8abef35}{TrainNeiro} ()
+\begin{DoxyCompactList}\small\item\em Teaching network. Getting data from \char`\"{}../data/xor.data\char`\"{} file and recording in \char`\"{}../data/xor\_\-float.net\char`\"{} file. \end{DoxyCompactList}\item 
+bool \hyperlink{classcAnnTrain_a28449a2968ab05652d221f8ac6a0a5ec}{ClearTrainFiles} ()
+\begin{DoxyCompactList}\small\item\em Clear files \char`\"{}../data/xor.data\char`\"{} and \char`\"{}../data/xor\_\-float.net\char`\"{}. \end{DoxyCompactList}\item 
+int \hyperlink{classcAnnTrain_a5f909eaa1d373f0213866293aa4a2cb2}{GetAnswer} (const std::vector$<$ int $>$ \&data)
+\begin{DoxyCompactList}\small\item\em Get answer from neural network. \end{DoxyCompactList}\item 
+bool \hyperlink{classcAnnTrain_a720619b4fdccac63478cc0545e5cfeb6}{SaveData} (const std::vector$<$ int $>$ \&data, unsigned int answer)
+\begin{DoxyCompactList}\small\item\em Save data in \char`\"{}../data/xor.data\char`\"{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
-\item 
-\hypertarget{classcAnnTrain_a71367bc818ee45d7ae218de3e8abef35}{
-bool {\bfseries TrainNeiro} ()}
-\label{classcAnnTrain_a71367bc818ee45d7ae218de3e8abef35}
 
-\item 
+\subsection{Detailed Description}
+Class for work with artificial neural network. 
+
+Provides teaching neural network and getting result by input data 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classcAnnTrain_a5863d11692c47f78e79dd55dfe9c8f3c}{
+\index{cAnnTrain@{cAnnTrain}!cAnnTrain@{cAnnTrain}}
+\index{cAnnTrain@{cAnnTrain}!cAnnTrain@{cAnnTrain}}
+\subsubsection[{cAnnTrain}]{\setlength{\rightskip}{0pt plus 5cm}cAnnTrain::cAnnTrain (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{output, }
+\item[{unsigned int}]{size}
+\end{DoxyParamCaption}
+)}}
+\label{classcAnnTrain_a5863d11692c47f78e79dd55dfe9c8f3c}
+
+
+Construct. Init additional variables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Number output neirons \\
+\hline
+{\em size} & Number input neirons \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
 \hypertarget{classcAnnTrain_a28449a2968ab05652d221f8ac6a0a5ec}{
-bool {\bfseries ClearTrainFiles} ()}
+\index{cAnnTrain@{cAnnTrain}!ClearTrainFiles@{ClearTrainFiles}}
+\index{ClearTrainFiles@{ClearTrainFiles}!cAnnTrain@{cAnnTrain}}
+\subsubsection[{ClearTrainFiles}]{\setlength{\rightskip}{0pt plus 5cm}bool cAnnTrain::ClearTrainFiles (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
 \label{classcAnnTrain_a28449a2968ab05652d221f8ac6a0a5ec}
 
-\item 
-\hypertarget{classcAnnTrain_abbb234cd2db365c051c67606b981afaa}{
-int {\bfseries GetAnswer} (const std::vector$<$ int $>$ \&)}
-\label{classcAnnTrain_abbb234cd2db365c051c67606b981afaa}
 
-\item 
-\hypertarget{classcAnnTrain_ac425fc0efe9cb1f098d5bfad81b0b796}{
-bool {\bfseries SaveData} (const std::vector$<$ int $>$ \&, unsigned int)}
-\label{classcAnnTrain_ac425fc0efe9cb1f098d5bfad81b0b796}
+Clear files \char`\"{}../data/xor.data\char`\"{} and \char`\"{}../data/xor\_\-float.net\char`\"{}. 
 
-\end{DoxyCompactItemize}
+\begin{DoxyReturn}{Returns}
+True if clearing was successfully 
+\end{DoxyReturn}
+\hypertarget{classcAnnTrain_a5f909eaa1d373f0213866293aa4a2cb2}{
+\index{cAnnTrain@{cAnnTrain}!GetAnswer@{GetAnswer}}
+\index{GetAnswer@{GetAnswer}!cAnnTrain@{cAnnTrain}}
+\subsubsection[{GetAnswer}]{\setlength{\rightskip}{0pt plus 5cm}int cAnnTrain::GetAnswer (
+\begin{DoxyParamCaption}
+\item[{const std::vector$<$ int $>$ \&}]{data}
+\end{DoxyParamCaption}
+)}}
+\label{classcAnnTrain_a5f909eaa1d373f0213866293aa4a2cb2}
+
+
+Get answer from neural network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Array with data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Positive number if successfully and -\/1 if wrong 
+\end{DoxyReturn}
+\hypertarget{classcAnnTrain_a720619b4fdccac63478cc0545e5cfeb6}{
+\index{cAnnTrain@{cAnnTrain}!SaveData@{SaveData}}
+\index{SaveData@{SaveData}!cAnnTrain@{cAnnTrain}}
+\subsubsection[{SaveData}]{\setlength{\rightskip}{0pt plus 5cm}bool cAnnTrain::SaveData (
+\begin{DoxyParamCaption}
+\item[{const std::vector$<$ int $>$ \&}]{data, }
+\item[{unsigned int}]{answer}
+\end{DoxyParamCaption}
+)}}
+\label{classcAnnTrain_a720619b4fdccac63478cc0545e5cfeb6}
+
+
+Save data in \char`\"{}../data/xor.data\char`\"{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Array with data \\
+\hline
+{\em answer} & Positive number with true answer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if data saved successfully 
+\end{DoxyReturn}
+\hypertarget{classcAnnTrain_a71367bc818ee45d7ae218de3e8abef35}{
+\index{cAnnTrain@{cAnnTrain}!TrainNeiro@{TrainNeiro}}
+\index{TrainNeiro@{TrainNeiro}!cAnnTrain@{cAnnTrain}}
+\subsubsection[{TrainNeiro}]{\setlength{\rightskip}{0pt plus 5cm}bool cAnnTrain::TrainNeiro (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{classcAnnTrain_a71367bc818ee45d7ae218de3e8abef35}
+
+
+Teaching network. Getting data from \char`\"{}../data/xor.data\char`\"{} file and recording in \char`\"{}../data/xor\_\-float.net\char`\"{} file. 
+
+\begin{DoxyReturn}{Returns}
+True if recording was successfully 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
