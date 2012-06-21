@@ -87,8 +87,8 @@ bool cCommandProcess::AddCommand(string command)
 
 void cCommandProcess::ExecCommand(unsigned int command)
 {
-    if (system(_commands[command -1].c_str()))
-        cerr << "Cannot run " << _commands[command - 1] << endl;
+    if (system(_commands[command].c_str()))
+        cerr << "Cannot run " << _commands[command] << endl;
 }
 
 void cCommandProcess::ClearCommandFile()

@@ -34,7 +34,7 @@
 using namespace std;
 
 cAnnTrain::cAnnTrain(unsigned int output, unsigned int size) :
-                                        _num_input(size),
+                                        _num_input(10000),
                                         _num_output(output),
                                         _count(0),
                                         _train_file("../data/xor.data"),
@@ -107,6 +107,7 @@ bool cAnnTrain::_RecordHead()
     ss.seekg(0);
     ostringstream out;
     ++_count;
+    cerr << _count << " - " << _num_input << " - " <<  _num_output << endl;
     out << _count << " " << _num_input << " " << _num_output;
     string line = out.str();
     while (line.length() < 20)
@@ -180,6 +181,7 @@ bool cAnnTrain::_InitPerceptron()
 {
     unsigned int num_layers = 3;
     unsigned int num_neurons_hidden = 3;
+    cerr << num_layers << " - " << _num_input << " - " << num_neurons_hidden << " - " << _num_output << endl;
     sAnn = fann_create_standard(num_layers, _num_input, num_neurons_hidden, _num_output);
 
     fann_set_activation_function_hidden(sAnn, FANN_SIGMOID_SYMMETRIC);
@@ -204,7 +206,6 @@ int cAnnTrain::GetAnswer(const vector<int> & data)
 
 int cAnnTrain::_GetMaxType(fann_type * data)
 {
-    cerr << "In get answer" << endl;
     float max = data[0];
     unsigned int pos = 0; 
     for (unsigned int i = 0; i < _num_output; ++i)
@@ -213,6 +214,6 @@ int cAnnTrain::_GetMaxType(fann_type * data)
             pos = i;
             max = data[i];
         }
-    
+    cerr << pos << endl;
     return pos;
 }

@@ -22,8 +22,11 @@ static void _ReadHelp(const char *progname)
             "  " << progname << " [options] file\n\n"
             "Options:\n"
             "  -t,--train\t\tTrain you perceptron\n"
-            "  -c,--clear-train\t\tClear you train file\n"
-            "  -r,--answer\t\tRun proccess and getcommand\n"
+            "  -a,--add\t\tAdd command\n"
+            "  -s,--search\t\tRun detector and search result\n"
+            "  -r,--rewrite\t\tRewrite train files to default\n"
+            "  -c,--clear\t\tClear command list file\n"
+            "  -l,--list\t\tShow command list\n"
             "  -h,--help\t\tThis is help message\n\n"
             "Example:\n"
             << endl;
@@ -56,6 +59,7 @@ void _TrainAnn()
         return;
     }
     cHandDetector detector;
+    cerr << detector.GetImageArray().size() << endl;
     cAnnTrain train(command.GetArraySize(), detector.GetImageArray().size());
     while (true)
     {
@@ -135,6 +139,13 @@ void _AddCommand()
     command.AddCommand(line);
 }
 
+void _ShowCommandList()
+{
+    cCommandProcess command;
+    command.Init();
+    command.ShowCommands();
+}
+
 int main(int argc, char** argv)
 {
     char const* progname = _Basename(argv[0]);
@@ -144,42 +155,48 @@ int main(int argc, char** argv)
         static struct option long_options[] = {
             { "train", no_argument, 0, 't'},
             { "add", no_argument, 0, 'a'},
-            { "run", no_argument, 0, 'r'},
-            { "clear-train", no_argument, 0, 'c'},
-            { "list-remove", no_argument, 0, 'l'},
+            { "search", no_argument, 0, 's'},
+            { "rewrite", no_argument, 0, 'r'},
+            { "clear", no_argument, 0, 'c'},
+            { "list", no_argument, 0, 'l'},
             { "help", no_argument, 0, 'h'},
             { 0, 0, 0, 0}
         };
 
         int option_index = 0;
 
-        int c = getopt_long(argc, argv, "taclrh",
+        int c = getopt_long(argc, argv, "tasrclh",
                             long_options, &option_index);
 
         if (c == -1)
+        {
+//            _ReadHelp(progname);
             break;
+        }
 
         switch (c)
         {
-        case 'h':
-            _ReadHelp(progname);
-            return 0;
-
         case 't':
             _TrainAnn();
-            break;
-        case 'r':
-            _GetAnswer();
             break;
         case 'a':
             _AddCommand();
             break;
-        case 'c':
+        case 's':
+            _GetAnswer();
+            break;
+        case 'r':
             _ClearTrainFile();
             break;
-        case 'l':
+        case 'c':
             _ClearCommandList();
             break;
+        case 'l':
+            _ShowCommandList();
+            break;
+        case 'h':
+            _ReadHelp(progname);
+            return 0;
 
         default:
             cerr << "Unknown option '" << c << "'" << endl;
